@@ -8,6 +8,13 @@ const Registration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+
+
+
+  const pageReload = (e) => {
+    e.preventDefault();
+  };
+
 const handleSubmit=async()=>{
     //object to hold user registration data
     const requestData = {

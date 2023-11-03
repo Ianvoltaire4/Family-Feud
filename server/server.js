@@ -11,6 +11,15 @@ const cors = require('cors')
 const store = new session.MemoryStore(); //store in db instead of store
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+async function testConnection() {
+  try {
+    await sequelize.authenticate();
+    console.log('Database connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+testConnection()
 
 
 
