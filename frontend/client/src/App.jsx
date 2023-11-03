@@ -6,7 +6,7 @@ import RoundTwo from './components/RoundTwo'
 const App = () => {
   return (
     <>
-    <RoundTwo />
+    <Registration />
     </>
   )
 }
