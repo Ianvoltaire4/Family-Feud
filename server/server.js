@@ -190,7 +190,20 @@ app.post('/registration', async (req,res)=>{
       res.status(500).send('Failed to create user')
   }
 });
+//====================================GAME ENDPOINTS========================================
 
+app.get('/roundTwo', async (req, res)=>{
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  const randomNumber = getRandomNumber(1, 7);
+  console.log(randomNumber)
+  
+  const roundTwoQuestion = await Questions.findOne({ where: { QuestionID: email } });
+
+  
+})
 
 
 
