@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "joofxath",
+    "password": "kqafaz2RD9jNm0HaIrqEDgHlZXDn0QlZ",
+    "database": "joofxath",
+    "host": "suleiman.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "joofxath",
+    "password": "kqafaz2RD9jNm0HaIrqEDgHlZXDn0QlZ",
+    "database": "joofxath",
+    "host": "suleiman.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "joofxath",
+    "password": "kqafaz2RD9jNm0HaIrqEDgHlZXDn0QlZ",
+    "database": "joofxath",
+    "host": "suleiman.db.elephantsql.com",
+    "dialect": "postgres"
+  }
+}
