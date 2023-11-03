@@ -88,6 +88,11 @@ app.get("/api", (req, res)=>{
 
 //====================================LOGIN ENDPOINT========================================
 
+
+app.get('/login', async(req, res)=>{
+  res.send('')
+})
+
 app.post('/login', async (req, res) => {
   console.log(req.sessionID)
   const { username, password } = req.body;
@@ -200,7 +205,7 @@ app.get('/roundTwo', async (req, res)=>{
   const randomNumber = getRandomNumber(1, 7);
   console.log(randomNumber)
   
-  const roundTwoQuestion = await Questions.findOne({ where: { QuestionID: email } });
+  const roundTwoQuestion = await Questions.findOne({ where: { questionID: randomNumber } });
 
   
 })
