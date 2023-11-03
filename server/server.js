@@ -5,9 +5,13 @@ const bcrypt = require('bcrypt');
 const winston = require('winston')
 const session = require('express-session');
 
+
 const cors = require('cors')
 
+const store = new session.MemoryStore(); //store in db instead of store
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 
 
 //cors code
@@ -16,6 +20,22 @@ app.use(
       origin: "*" //change * to deployed front end link when done
     })
   );
+
+//sessions code
+app.use(
+  session({
+    secret: "some secret", //change later to something more secure
+    cookie: { maxAge: 30000 }, //how log in milisec until the session exprires
+    saveUninitialized: true, //this makes it so that it doesnt generate a new session id everytime a user makes a request to the server and instead generates a new session id when the user logs in
+    store: store, //replace with the database so that the session will be saved there instead of the memory(store)
+  })
+);
+app.use((req, res, next) => {
+  console.log(store); //change to database
+  console.log(`${req.method} - ${req.url}`);
+  next();
+});
+
 // logger code
   app.all('*', (req, res, next) => {
     try {
@@ -48,6 +68,18 @@ const logger = winston.createLogger({
         new winston.transports.File({ filename: 'combined.log' }),
     ],
 });
+
+//function to test db connection
+// async function testConnection() {
+//   try {
+//     await sequelize.authenticate();
+//     console.log('Database connection has been established successfully.');
+//   } catch (error) {
+//     console.error('Unable to connect to the database:', error);
+//   }
+// }
+// testConnection();
+
 //====================================TEST ENDPOINT========================================
 
 app.get("/api", (req, res)=>{
@@ -56,15 +88,53 @@ app.get("/api", (req, res)=>{
 
 //====================================LOGIN ENDPOINT========================================
 
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
 
-  // Perform authentication logic here (e.g., checking credentials against a database)
-  if (username === Users.username && password === Users.password) {
-    res.status(200).send('Login successful' );
-  } else {
-    res.status(401).send('Invalid username or password');
+app.get('/login', async(req, res)=>{
+  res.send('')
+})
+
+app.post('/login', async (req, res) => {
+  console.log(req.sessionID)
+  const { username, password } = req.body;
+  if (username && password){
+    if(req.session.authenticated){
+      res.json(req.session)
+    }else{
+      if(password==='123'){ //change 123 later
+        res.session.authenticated=true
+        req.session.user={
+          username, password
+        }
+        res.json(req.session)
+      }else{
+        res.status(403).send('invalid credentials')
+      }
+    }
+    res.send(200)
   }
+
+
+  try {
+    const dbUser = await Users.findOne({ where: { email: email } });
+    console.log(dbUser)
+
+    if (dbUser) {
+      res.status(200).send('Login successful', dbUser );
+    } else {
+      res.status(403).send('User not found' );
+    }
+    if (username === dbUser.username && password === dbUser.password) {
+      res.status(200).send('Login successful' );
+    } else {
+      res.status(401).send('Invalid username or password');
+    }
+
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: `Error connecting to the database` });
+  }
+  // Perform authentication logic here (e.g., checking credentials against a database)
 });
 
 
@@ -125,7 +195,20 @@ app.post('/registration', async (req,res)=>{
       res.status(500).send('Failed to create user')
   }
 });
+//====================================GAME ENDPOINTS========================================
 
+app.get('/roundTwo', async (req, res)=>{
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  const randomNumber = getRandomNumber(1, 7);
+  console.log(randomNumber)
+  
+  const roundTwoQuestion = await Questions.findOne({ where: { questionID: randomNumber } });
+
+  
+})
 
 
 
