@@ -13,15 +13,16 @@ const cors = require('cors')
 const store = new session.MemoryStore(); //store in db instead of store
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-async function testConnection() {
-  try {
-    await sequelize.authenticate();
-    console.log('Database connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-}
-testConnection()
+
+// async function testConnection() {
+//   try {
+//     await sequelize.authenticate();
+//     console.log('Database connection has been established successfully.');
+//   } catch (error) {
+//     console.error('Unable to connect to the database:', error);
+//   }
+// }
+// testConnection()
 
 
 
@@ -139,9 +140,6 @@ app.post('/login', async (req, res) => {
   // Perform authentication logic here (e.g., checking credentials against a database)
 });
 
-
-
-
 //====================================REGISTRATION ENDPOINT========================================
 
 app.post('/registration', async (req,res)=>{
@@ -209,7 +207,6 @@ app.get('/roundTwo', async (req, res)=>{
   
   const roundTwoQuestion = await Questions.findOne({ where: { questionID: randomNumber } });
 
-  
 })
 
 
