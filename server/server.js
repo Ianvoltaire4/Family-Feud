@@ -4,6 +4,8 @@ const port = 5001
 const bcrypt = require('bcrypt');
 const winston = require('winston')
 const session = require('express-session');
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize=require('./models')
 
 
 const cors = require('cors')
@@ -36,7 +38,7 @@ app.use(
     secret: "some secret", //change later to something more secure
     cookie: { maxAge: 30000 }, //how log in milisec until the session exprires
     saveUninitialized: true, //this makes it so that it doesnt generate a new session id everytime a user makes a request to the server and instead generates a new session id when the user logs in
-    store: store, //replace with the database so that the session will be saved there instead of the memory(store)
+    store: store //replace with the database so that the session will be saved there instead of the memory(store)
   })
 );
 app.use((req, res, next) => {
@@ -78,16 +80,7 @@ const logger = winston.createLogger({
     ],
 });
 
-//function to test db connection
-// async function testConnection() {
-//   try {
-//     await sequelize.authenticate();
-//     console.log('Database connection has been established successfully.');
-//   } catch (error) {
-//     console.error('Unable to connect to the database:', error);
-//   }
-// }
-// testConnection();
+
 
 //====================================TEST ENDPOINT========================================
 
