@@ -1,14 +1,13 @@
 const express= require('express');
 const app = express();
+const pg = require('pg')
 const port = 5001
 const bcrypt = require('bcrypt');
 const winston = require('winston')
 const session = require('express-session');
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize=require('./models')
-
-
+const { Sequelize } = require('sequelize');
 const cors = require('cors')
+const {Users} = require('./models')
 
 const store = new session.MemoryStore(); //store in db instead of store
 app.use(express.json());
@@ -16,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // async function testConnection() {
 //   try {
-//     await sequelize.authenticate();
+//     await Sequelize.authenticate();
 //     console.log('Database connection has been established successfully.');
 //   } catch (error) {
 //     console.error('Unable to connect to the database:', error);
@@ -92,29 +91,29 @@ app.get("/api", (req, res)=>{
 //====================================LOGIN ENDPOINT========================================
 
 
-app.get('/login', async(req, res)=>{
-  res.send('')
-})
+// app.get('/login', async(req, res)=>{
+//   res.send('')
+// })
 
 app.post('/login', async (req, res) => {
-  console.log(req.sessionID)
+  // console.log(req.sessionID)
   const { username, password } = req.body;
-  if (username && password){
-    if(req.session.authenticated){
-      res.json(req.session)
-    }else{
-      if(password==='123'){ //change 123 later
-        res.session.authenticated=true
-        req.session.user={
-          username, password
-        }
-        res.json(req.session)
-      }else{
-        res.status(403).send('invalid credentials')
-      }
-    }
-    res.send(200)
-  }
+  // if (username && password){
+  //   if(req.session.authenticated){
+  //     res.json(req.session)
+  //   }else{
+  //     if(password==='123'){ //change 123 later
+  //       res.session.authenticated=true
+  //       req.session.user={
+  //         username, password
+  //       }
+  //       res.json(req.session)
+  //     }else{
+  //       res.status(403).send('invalid credentials')
+  //     }
+  //   }
+  //   res.send(200)
+  // }
 
 
   try {
@@ -143,57 +142,65 @@ app.post('/login', async (req, res) => {
 //====================================REGISTRATION ENDPOINT========================================
 
 app.post('/registration', async (req,res)=>{
-  const { firstName, lastName, email, username, password } = req.body;
+  const { email, password } = req.body;
+  const dbUser = await Users.findOne({ where: { email: email } });
+  if(!dbUser){
+    const newUser = await Users.create({email:email, password:password})
+    res.send(newUser)
+  }
+  else{
+    console.log('first')
+  }
   // Make sure the first and last name only have Uppercase and lowercase letters.
-  const nameRegex = /^[A-Za-z]+$/; 
-  // Make sure the password has at least 8 characters and allows for upper and lowercasse letters.
-  const passwordRegex =/^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  // Allows for diffrent email endings.
-  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|net|gov|edu)$/;
+  // const nameRegex = /^[A-Za-z]+$/; 
+  // // Make sure the password has at least 8 characters and allows for upper and lowercasse letters.
+  // const passwordRegex =/^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  // // Allows for diffrent email endings.
+  // const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|net|gov|edu)$/;
 
-  if(!emailRegex.test(email)) {
-      return res.status(400).send('Invalid email format or ending. Email must end with .com, .net, .gov, or .edu.');
-  }
-  if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
-      return res.status(400).send('First name and last name must contain only letters' );
-  }
-  if (!passwordRegex.test(password)) {
-      return res.status(400).send('Password must include at least one uppercase letter, one lowercase letter, one special character, and one number.' );
-  }
+  // if(!emailRegex.test(email)) {
+  //     return res.status(400).send('Invalid email format or ending. Email must end with .com, .net, .gov, or .edu.');
+  // }
+  // if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
+  //     return res.status(400).send('First name and last name must contain only letters' );
+  // }
+  // if (!passwordRegex.test(password)) {
+  //     return res.status(400).send('Password must include at least one uppercase letter, one lowercase letter, one special character, and one number.' );
+  // }
 
-  const existingEmail = await Users.findOne({where: {email:email}})
-  if (existingEmail) {
-      return res.status(400).send('This email is already being used');
-  }
-  const existingUserName = await Users.findOne({ where: { username: username } });
-  if (existingUserName) {
-      return res.status(400).send('This username is already being used');
-  }
-  try {
-      const saltRounds = 10;
-      const hashedPasswords= await bcrypt.hash(password, saltRounds);
+  // const existingEmail = await Users.findOne({where: {email:email}})
+  // if (existingEmail) {
+  //     return res.status(400).send('This email is already being used');
+  // }
+  // const existingUserName = await Users.findOne({ where: { username: username } });
+  // if (existingUserName) {
+  //     return res.status(400).send('This username is already being used');
+  // }
+  // try {
+  //     const saltRounds = 10;
+  //     const hashedPasswords= await bcrypt.hash(password, saltRounds);
 
-      await Users.create({
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          email: req.body.email,
-          username: req.body.username,
-          password: req.body.hashedPasswords
-      });
-      logger.info({
-          level: 'info',
-          method: req.method,
-          body: req.body,
-          url: req.url,
-          parameters: req.params,
-          timestamp: new Date().toLocaleString()
-      });
+  //     await Users.create({
+  //         firstName: req.body.firstName,
+  //         lastName: req.body.lastName,
+  //         email: req.body.email,
+  //         username: req.body.username,
+  //         password: req.body.hashedPasswords
+  //     });
+  //     logger.info({
+  //         level: 'info',
+  //         method: req.method,
+  //         body: req.body,
+  //         url: req.url,
+  //         parameters: req.params,
+  //         timestamp: new Date().toLocaleString()
+  //     });
 
-      res.send('Account created susccessfully' );
-  }catch (error) {
-      console.error('Error creating user', error);
-      res.status(500).send('Failed to create user')
-  }
+  //     res.send('Account created susccessfully' );
+  // }catch (error) {
+  //     console.error('Error creating user', error);
+  //     res.status(500).send('Failed to create user')
+  // }
 });
 //====================================GAME ENDPOINTS========================================
 
