@@ -4,8 +4,10 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
+import CoinFlip from "./CoinFlip"
 
 const RoundTwo = () => {
+  //inputs for both teams
   const [teamOneInput, setTeamOneInput] = useState("");
   const [teamTwoInput, setTeamTwoInput] = useState("");
   const [question, setQuestion] = useState("");
@@ -391,13 +393,13 @@ const RoundTwo = () => {
       <div>
         {wrongAnswersTeamOne < maxWrongAnswers && (
           <div>
-            {currentTeam}: <input type="text" onChange={setTeamOneInput} />
+            {currentTeam}: <input id="currentTeam" type="text" onChange={setTeamOneInput} />
             <button onClick={teamOneWrongAnswer}>enter</button>
           </div>
         )}
         {wrongAnswersTeamTwo < maxWrongAnswers && (
           <div>
-            {otherTeam}: <input type="text" onChange={setTeamTwoInput} />
+            {otherTeam}: <input id="otherTeam" type="text" onChange={setTeamTwoInput} />
             <button onClick={teamTwoWrongAnswer}>enter</button>
           </div>
         )}
