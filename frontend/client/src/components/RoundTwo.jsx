@@ -1,6 +1,9 @@
 //need to make functions to hide buttons, create logic to end a round when won( if both teams lose from x)
 
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Link } from "react-router-dom";
 
 const RoundTwo = () => {
   const [teamOneInput, setTeamOneInput] = useState("");
@@ -22,6 +25,8 @@ const RoundTwo = () => {
   const [answerSevenScore, setAnswerSevenScore] = useState("");
   const [currentTeam, setCurrentTeam] = useState("");
   const [otherTeam, setOtherTeam] = useState("");
+  const [teamName, setTeamName] = useState("");
+  const [otherTeamName, setOtherTeamName]=useState("")
   const [time, setTime] = useState(1000);
   const [teamOneX, setTeamOneX] = useState(0);
   const [teamTwoX, setTeamTwoX] = useState(0);
@@ -34,16 +39,11 @@ const RoundTwo = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [showStartMenu, setShowStartMenu] = useState(true);
-
-  // let answerOne = "one";
-  // let answerTwo = "two";
-
+  const [smShow, setSmShow] = useState(false);
+  const [lgShow, setLgShow] = useState(false);
   const maxWrongAnswers = 3;
-
-
-
-
-
+  let boardCleared = false;
+  let content;
 
   useEffect(() => {
     let intervalId;
@@ -61,6 +61,20 @@ const RoundTwo = () => {
     }
     return () => clearInterval(intervalId);
   }, [isRunning]);
+
+  const handleTeamName = () => {
+    setCurrentTeam(teamName);
+  };
+  const handleOtherTeamName=()=>{
+    setOtherTeam(otherTeamName)
+  }
+
+  const handleInputChange = (e) => {
+    setTeamName(e.target.value);
+  };
+  const handleOtherInputChange=(e)=>{
+    setOtherTeamName(e.target.value)
+  }
 
   const hours = Math.floor(time / 360000);
   const min = Math.floor((time % 360000) / 6000);
@@ -86,22 +100,26 @@ const RoundTwo = () => {
       }, 5000);
       return () => clearTimeout(hideButton);
     }
-    startAndStop
+    startAndStop;
+    setLgShow(true);
   }, [showButton]);
+
 
   const handleStart = () => {
     setTimeout(() => {
       startAndStop();
       setGameStarted(true);
       setShowStartMenu(false); // Hide the start menu after starting the game
-
-    }, 5000);
+      setLgShow(false); 
+      setCurrentTeam(teamName);
+      setOtherTeam(otherTeamName)
+    }, []);
     populateData;
   };
 
   const teamOneWrongAnswer = () => {
     // Compares the teamOneInput with the correct answer (answerOne)
-    if (teamOneInput.toLowerCase() !== answerOne.toLowerCase()) {
+    if (teamOneInput.toLowerCase !== answerOne.toLowerCase) {
       // if timer is zero then swtich team
       // Increment the score for Team One
       setTeamOneX(teamOneX + 1);
@@ -114,7 +132,7 @@ const RoundTwo = () => {
   };
   const teamTwoWrongAnswer = () => {
     // Compare the teamTwoInput with the correct answer (answerTwo)
-    if (teamTwoInput.toLowerCase() !== answerTwo.toLowerCase()) {
+    if (teamTwoInput.toLowerCase !== answerTwo.toLowerCase) {
       // Increment the score for Team Two
       setTeamTwoX(teamTwoX + 1);
     }
@@ -176,75 +194,7 @@ const RoundTwo = () => {
     //   s4: ,
     //   s6: ,
     //   s7:
-    // } ,
-    // {
-    //   q: '',
-    //   a1: '',
-    //   a2: '',
-    //   a3: '',
-    //   a4: '',
-    //   a5: '',
-    //   a6: '',
-    //   a7: '',
-    //   s1: ,
-    //   s2: ,
-    //   s3: ,
-    //   s5: ,
-    //   s4: ,
-    //   s6: ,
-    //   s7:
-    // } ,
-    // {
-    //   q: '',
-    //   a1: '',
-    //   a2: '',
-    //   a3: '',
-    //   a4: '',
-    //   a5: '',
-    //   a6: '',
-    //   a7: '',
-    //   s1: ,
-    //   s2: ,
-    //   s3: ,
-    //   s5: ,
-    //   s4: ,
-    //   s6: ,
-    //   s7:
-    // } ,
-    // {
-    //   q: '',
-    //   a1: '',
-    //   a2: '',
-    //   a3: '',
-    //   a4: '',
-    //   a5: '',
-    //   a6: '',
-    //   a7: '',
-    //   s1: ,
-    //   s2: ,
-    //   s3: ,
-    //   s5: ,
-    //   s4: ,
-    //   s6: ,
-    //   s7:
-    // } ,
-    // {
-    //   q: '',
-    //   a1: '',
-    //   a2: '',
-    //   a3: '',
-    //   a4: '',
-    //   a5: '',
-    //   a6: '',
-    //   a7: '',
-    //   s1: ,
-    //   s2: ,
-    //   s3: ,
-    //   s5: ,
-    //   s4: ,
-    //   s6: ,
-    //   s7:
-    // } ,
+    // }
   ];
 
   const populateData = () => {
@@ -256,12 +206,12 @@ const RoundTwo = () => {
     setAnswerFive(a5);
     setAnswerSix(a6);
     setAnswerSeven(a7);
-
+    //populate scores too here mabye
   };
 
-  const assignPoints=()=>{
+  const assignPoints = () => {
     //make if else statements for giving points based on what answer the user gets right
-  }
+  };
 
   const handleCorrectAnswer = () => {
     for (let i = 0; i < gameData.length; i++) {
@@ -274,87 +224,47 @@ const RoundTwo = () => {
   };
 
   const handleRoundOver = () => {
-    //logic for if its team ones turn
-    if (currentTeam == "Team One") {
-      // Compare the teamTwoInput with the correct answer (answerTwo)
-      if (
-        teamOneInput.toLowerCase() == answerOne &&
+    let boardCleared = false;
+  
+    // Check if the answers are correct for the current team
+    if (
+      (currentTeam === "Team One" &&
+        teamOneInput.toLowerCase() === answerOne.toLowerCase() &&
         answerTwo &&
         answerThree &&
         answerFour &&
         answerFive &&
         answerSix &&
-        answerSeven
-      ) {
-        console.log("YOU HAVE CLEARED THE BOARD");
-      } else if (
-        (wrongAnswersTeamOne === maxWrongAnswers &&
-          currentTeam == "Team Two" &&
-          teamTwoInput.toLowerCase() == answerOne) ||
-        answerTwo ||
-        answerThree ||
-        answerFour ||
-        answerFive ||
-        answerSix ||
-        answerSeven
-      ) {
-        //if team one is out and the current team is team two and team two get one answer right then team two stole the points
-        console.log("TEAM TWO, YOU HAVE STOLEN");
-      } else if (
-        (wrongAnswersTeamOne === maxWrongAnswers &&
-          currentTeam == "Team Two" &&
-          teamTwoInput.toLowerCase() !== answerOne) ||
-        answerTwo ||
-        answerThree ||
-        answerFour ||
-        answerFive ||
-        answerSix ||
-        answerSeven
-      ) {
-        console.log(
-          "TEAM TWO HAS LOST THE STEAL, TEAM ONE YOU TAKE THE POINTS"
-        );
-      } else {
-        console.log("NO ONE TAKES THE POINTS");
-      }
-    } else if (currentTeam == "Team Two") {
-      if (
-        teamTwoInput.toLowerCase() == answerOne &&
+        answerSeven) ||
+      (currentTeam === "Team Two" &&
+        teamTwoInput.toLowerCase() === answerOne.toLowerCase() &&
         answerTwo &&
         answerThree &&
         answerFour &&
         answerFive &&
         answerSix &&
-        answerSeven
+        answerSeven)
+    ) {
+      console.log("YOU HAVE CLEARED THE BOARD");
+      boardCleared = true;
+    }
+  
+    // Check if the other team stole points
+    if (!boardCleared) {
+      if (
+        (wrongAnswersTeamOne === maxWrongAnswers && currentTeam === "Team Two") ||
+        (wrongAnswersTeamTwo === maxWrongAnswers && currentTeam === "Team One")
       ) {
-        console.log("YOU HAVE CLEARED THE BOARD");
-      } else if (
-        (wrongAnswersTeamTwo === maxWrongAnswers &&
-          currentTeam == "Team One" &&
-          teamOneInput.toLowerCase() == answerOne) ||
-        answerTwo ||
-        answerThree ||
-        answerFour ||
-        answerFive ||
-        answerSix ||
-        answerSeven
-      ) {
-        //if team one is out and the current team is team two and team two get one answer right then team two stole the points
-        console.log("TEAM ONE, YOU HAVE STOLEN");
-      } else if (
-        (wrongAnswersTeamTwo === maxWrongAnswers &&
-          currentTeam == "Team One" &&
-          teamOneInput.toLowerCase() !== answerOne) ||
-        answerTwo ||
-        answerThree ||
-        answerFour ||
-        answerFive ||
-        answerSix ||
-        answerSeven
-      ) {
-        console.log(
-          "TEAM ONE HAS LOST THE STEAL, TEAM TWO YOU TAKE THE POINTS"
-        );
+        if (
+          (currentTeam === "Team Two" &&
+            teamTwoInput.toLowerCase() === answerOne.toLowerCase()) ||
+          (currentTeam === "Team One" &&
+            teamOneInput.toLowerCase() === answerOne.toLowerCase())
+        ) {
+          console.log(`${otherTeam}, YOU HAVE STOLEN`);
+        } else {
+          console.log(`${otherTeam} HAS LOST THE STEAL, ${currentTeam} YOU TAKE THE POINTS`);
+        }
       } else {
         console.log("NO ONE TAKES THE POINTS");
       }
@@ -362,7 +272,42 @@ const RoundTwo = () => {
   };
   return (
     <>
-    
+      <Button onClick={() => setLgShow(true)}>START GAME</Button>
+      <Modal
+        size="lg"
+        show={lgShow}
+        onHide={() => setLgShow(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">
+            GAME RULES
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {!isRunning && showButton && (
+            <div>
+              <div>
+                Congrats {currentTeam}, YOUR FIRST! Pick your team name:
+                <div>
+                <input type="text" placeholder="ENTER TEAM NAME" value={teamName} onChange={handleInputChange}/>
+                <button onClick={handleTeamName}> Save Name</button>
+                </div>
+                <div>
+                <input type="text" placeholder="ENTER TEAM NAME" value={otherTeamName} onChange={handleOtherInputChange}/>
+                <button onClick={handleOtherTeamName}> Save Name</button>
+                </div>
+              </div>
+              <button id="start" onClick={handleStart}>
+                Start Game
+                {/* PUT COINFLIP LOGIC HERE */}
+
+              </button>
+            </div>
+          )}
+        </Modal.Body>
+      </Modal>
+
       <div id="board">
         <div>{question}</div>
         <div id="answers">
@@ -390,23 +335,23 @@ const RoundTwo = () => {
         </div>
       </div>
 
-      <h1>{currentTeam} is you turn</h1>
       {(hours === 0 && min === 0 && sec === 0 && millisec === 0) ||
       wrongAnswersTeamOne === maxWrongAnswers ||
       wrongAnswersTeamTwo === maxWrongAnswers ? (
         <div>
-          {handleTeamSwitch}
 
-          <h1>DING DING DING DING, TIMES UP</h1>
+
+          <h1>DING DING DING DING, TIMES UP{handleTeamSwitch}</h1>
+          <h1>{currentTeam} you have lost you're turn</h1>
           <h3>
-            On to the next team! {currentTeam} you're up! All you need to do to
+            On to the next team! {otherTeam} you're up! All you need to do to
             take the points for this round, is guess one more item on the board.
-            If its not there then {otherTeam} take this round!!!
+            If its not there then {currentTeam} take this round!!!
           </h3>
 
-          <button id="switch-teams" onClick={handleTeamSwitch}>
+          {/* <button id="switch-teams" onClick={handleTeamSwitch}>
             switch
-          </button>
+          </button> */}
         </div>
       ) : (
         <>
@@ -414,23 +359,18 @@ const RoundTwo = () => {
           {millisec.toString().padStart(2, "0")}
         </>
       )}
-      {!isRunning && showButton && (
-        <button id="start" onClick={handleStart}>
-          Start Game
-        </button>
-      )}
 
       <div>
         {wrongAnswersTeamOne < maxWrongAnswers && (
           <div>
-            Team One Answer: <input type="text" />
-            <button onClick={teamOneWrongAnswer}></button>
+            {currentTeam}: <input type="text" onChange={setTeamOneInput} />
+            <button onClick={teamOneWrongAnswer}>enter</button>
           </div>
         )}
         {wrongAnswersTeamTwo < maxWrongAnswers && (
           <div>
-            Team Two Answer: <input type="text" />
-            <button onClick={teamTwoWrongAnswer}></button>
+            {otherTeam}: <input type="text" onChange={setTeamTwoInput} />
+            <button onClick={teamTwoWrongAnswer}>enter</button>
           </div>
         )}
       </div>
@@ -440,20 +380,18 @@ const RoundTwo = () => {
 
 export default RoundTwo;
 
+// const handleTurn=()=>{
+//   if(coinFlip == "heads"){
+//     return(
+//       <>
 
+//       </>
+//     )
+//   }else{
+//     return(
+//       <>
 
-const handleTurn=()=>{
-  if(coinFlip == "heads"){
-    return(
-      <>
-
-      </>
-    )
-  }else{
-    return(
-      <>
-        
-      </>
-    )
-  }
-}
+//       </>
+//     )
+//   }
+// }
