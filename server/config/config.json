@@ -1,22 +1,22 @@
 {
   "development": {
-    "username": "joofxath",
-    "password": "kqafaz2RD9jNm0HaIrqEDgHlZXDn0QlZ",
-    "database": "joofxath",
+    "username": "faqdvgfl",
+    "password": "en60qnxFtOu9lUPgdytgGXuImJXNxiI6",
+    "database": "faqdvgfl",
     "host": "suleiman.db.elephantsql.com",
     "dialect": "postgres"
   },
   "test": {
-    "username": "joofxath",
-    "password": "kqafaz2RD9jNm0HaIrqEDgHlZXDn0QlZ",
-    "database": "joofxath",
+    "username": "faqdvgfl",
+    "password": "en60qnxFtOu9lUPgdytgGXuImJXNxiI6",
+    "database": "faqdvgfl",
     "host": "suleiman.db.elephantsql.com",
     "dialect": "postgres"
   },
   "production": {
-    "username": "joofxath",
-    "password": "kqafaz2RD9jNm0HaIrqEDgHlZXDn0QlZ",
-    "database": "joofxath",
+    "username": "faqdvgfl",
+    "password": "en60qnxFtOu9lUPgdytgGXuImJXNxiI6",
+    "database": "faqdvgfl",
     "host": "suleiman.db.elephantsql.com",
     "dialect": "postgres"
   }

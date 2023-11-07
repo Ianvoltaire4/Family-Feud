@@ -33,10 +33,17 @@ const RoundTwo = () => {
   const [showButton, setShowButton] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [showStartMenu, setShowStartMenu] = useState(true);
+
   // let answerOne = "one";
   // let answerTwo = "two";
 
   const maxWrongAnswers = 3;
+
+
+
+
+
 
   useEffect(() => {
     let intervalId;
@@ -79,12 +86,15 @@ const RoundTwo = () => {
       }, 5000);
       return () => clearTimeout(hideButton);
     }
+    startAndStop
   }, [showButton]);
 
   const handleStart = () => {
     setTimeout(() => {
       startAndStop();
       setGameStarted(true);
+      setShowStartMenu(false); // Hide the start menu after starting the game
+
     }, 5000);
     populateData;
   };
@@ -246,8 +256,12 @@ const RoundTwo = () => {
     setAnswerFive(a5);
     setAnswerSix(a6);
     setAnswerSeven(a7);
-    setRoundScore(s1 + s2 + s3 + s4 + s5 + s6 + s7);
+
   };
+
+  const assignPoints=()=>{
+    //make if else statements for giving points based on what answer the user gets right
+  }
 
   const handleCorrectAnswer = () => {
     for (let i = 0; i < gameData.length; i++) {
@@ -348,6 +362,7 @@ const RoundTwo = () => {
   };
   return (
     <>
+    
       <div id="board">
         <div>{question}</div>
         <div id="answers">
@@ -424,3 +439,21 @@ const RoundTwo = () => {
 };
 
 export default RoundTwo;
+
+
+
+const handleTurn=()=>{
+  if(coinFlip == "heads"){
+    return(
+      <>
+
+      </>
+    )
+  }else{
+    return(
+      <>
+        
+      </>
+    )
+  }
+}
