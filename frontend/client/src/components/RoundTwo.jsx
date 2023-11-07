@@ -1,6 +1,9 @@
 //need to make functions to hide buttons, create logic to end a round when won( if both teams lose from x)
 
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Link } from "react-router-dom";
 
 const RoundTwo = () => {
   const [teamOneInput, setTeamOneInput] = useState("");
@@ -22,6 +25,7 @@ const RoundTwo = () => {
   const [answerSevenScore, setAnswerSevenScore] = useState("");
   const [currentTeam, setCurrentTeam] = useState("");
   const [otherTeam, setOtherTeam] = useState("");
+  const [teamName, setTeamName] = useState("");
   const [time, setTime] = useState(1000);
   const [teamOneX, setTeamOneX] = useState(0);
   const [teamTwoX, setTeamTwoX] = useState(0);
@@ -34,16 +38,10 @@ const RoundTwo = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [showStartMenu, setShowStartMenu] = useState(true);
-
-  // let answerOne = "one";
-  // let answerTwo = "two";
-
+  const [smShow, setSmShow] = useState(false);
+  const [lgShow, setLgShow] = useState(false);
   const maxWrongAnswers = 3;
-
-
-
-
-
+  let content;
 
   useEffect(() => {
     let intervalId;
@@ -61,6 +59,13 @@ const RoundTwo = () => {
     }
     return () => clearInterval(intervalId);
   }, [isRunning]);
+
+  const handleTeamName = () => {
+    setCurrentTeam(teamName);
+  };
+  const handleInputChange = (event) => {
+    setTeamName(event.target.value);
+  };
 
   const hours = Math.floor(time / 360000);
   const min = Math.floor((time % 360000) / 6000);
@@ -86,16 +91,18 @@ const RoundTwo = () => {
       }, 5000);
       return () => clearTimeout(hideButton);
     }
-    startAndStop
+    startAndStop;
+    setLgShow(true);
   }, [showButton]);
+  console.log([showButton]);
 
   const handleStart = () => {
     setTimeout(() => {
       startAndStop();
       setGameStarted(true);
       setShowStartMenu(false); // Hide the start menu after starting the game
-
-    }, 5000);
+      setLgShow(false); 
+    }, []);
     populateData;
   };
 
@@ -256,12 +263,11 @@ const RoundTwo = () => {
     setAnswerFive(a5);
     setAnswerSix(a6);
     setAnswerSeven(a7);
-
   };
 
-  const assignPoints=()=>{
+  const assignPoints = () => {
     //make if else statements for giving points based on what answer the user gets right
-  }
+  };
 
   const handleCorrectAnswer = () => {
     for (let i = 0; i < gameData.length; i++) {
@@ -362,7 +368,35 @@ const RoundTwo = () => {
   };
   return (
     <>
-    
+      <Button onClick={() => setLgShow(true)}>START GAME</Button>
+      <Modal
+        size="lg"
+        show={lgShow}
+        onHide={() => setLgShow(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">
+            GAME RULES
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {!isRunning && showButton && (
+            <div>
+              <button id="start" onClick={handleStart}>
+                Start Game
+                {/* PUT COINFLIP LOGIC HERE */}
+              </button>
+              <p>
+                Congrats {currentTeam}, YOUR FIRST! Pick your team name:{" "}
+                <input type="text" placeholder="ENTER TEAM NAME" value={teamName} onChange={handleInputChange}/>
+                <button onClick={handleTeamName}> Save Name</button>
+              </p>
+            </div>
+          )}
+        </Modal.Body>
+      </Modal>
+
       <div id="board">
         <div>{question}</div>
         <div id="answers">
@@ -395,13 +429,13 @@ const RoundTwo = () => {
       wrongAnswersTeamOne === maxWrongAnswers ||
       wrongAnswersTeamTwo === maxWrongAnswers ? (
         <div>
-          {handleTeamSwitch}
 
-          <h1>DING DING DING DING, TIMES UP</h1>
+
+          <h1>DING DING DING DING, TIMES UP{handleTeamSwitch}</h1>
           <h3>
-            On to the next team! {currentTeam} you're up! All you need to do to
+            On to the next team! {otherTeam} you're up! All you need to do to
             take the points for this round, is guess one more item on the board.
-            If its not there then {otherTeam} take this round!!!
+            If its not there then {currentTeam} take this round!!!
           </h3>
 
           <button id="switch-teams" onClick={handleTeamSwitch}>
@@ -414,23 +448,18 @@ const RoundTwo = () => {
           {millisec.toString().padStart(2, "0")}
         </>
       )}
-      {!isRunning && showButton && (
-        <button id="start" onClick={handleStart}>
-          Start Game
-        </button>
-      )}
 
       <div>
         {wrongAnswersTeamOne < maxWrongAnswers && (
           <div>
-            Team One Answer: <input type="text" />
-            <button onClick={teamOneWrongAnswer}></button>
+            Team One Answer: <input type="text" onChange={setTeamOneInput} />
+            <button onClick={teamOneWrongAnswer}>enter</button>
           </div>
         )}
         {wrongAnswersTeamTwo < maxWrongAnswers && (
           <div>
-            Team Two Answer: <input type="text" />
-            <button onClick={teamTwoWrongAnswer}></button>
+            Team Two Answer: <input type="text" onChange={setTeamTwoInput} />
+            <button onClick={teamTwoWrongAnswer}>enter</button>
           </div>
         )}
       </div>
@@ -440,20 +469,18 @@ const RoundTwo = () => {
 
 export default RoundTwo;
 
+// const handleTurn=()=>{
+//   if(coinFlip == "heads"){
+//     return(
+//       <>
 
+//       </>
+//     )
+//   }else{
+//     return(
+//       <>
 
-const handleTurn=()=>{
-  if(coinFlip == "heads"){
-    return(
-      <>
-
-      </>
-    )
-  }else{
-    return(
-      <>
-        
-      </>
-    )
-  }
-}
+//       </>
+//     )
+//   }
+// }
