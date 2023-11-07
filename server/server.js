@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-=======
+
 // async function testConnection() {
 //   try {
 //     await Sequelize.authenticate();
@@ -57,16 +57,7 @@ app.use(
         res.status(500).send('Error');
     }
 });
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.json(),
-    defaultMeta: { service: 'user-service' },
-    transports: [
 
-        new winston.transports.File({ filename: 'error.log', level: 'error' }),
-        new winston.transports.File({ filename: 'combined.log' }),
-    ],
-});
 //====================================TEST ENDPOINT========================================
 
 //sessions code
@@ -186,7 +177,7 @@ app.post('/login', (req, res) => {
 //   }
 //   // Perform authentication logic here (e.g., checking credentials against a database)
 
-// });
+});
 
 //====================================REGISTRATION ENDPOINT========================================
 

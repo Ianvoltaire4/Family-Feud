@@ -41,8 +41,16 @@ const RoundTwo = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [showStartMenu, setShowStartMenu] = useState(true);
+  //bootstrap
   const [smShow, setSmShow] = useState(false);
   const [lgShow, setLgShow] = useState(false);
+  const [show, setShow]=useState(false)
+  const values = [true, 'sm-down', 'md-down', 'lg-down', 'xl-down', 'xxl-down'];
+  const [fullscreen, setFullscreen] = useState(true);
+  function handleShow(breakpoint) {
+    setFullscreen(breakpoint);
+    setShow(true);
+  }
   const maxWrongAnswers = 3;
   let boardCleared = false;
   let content;
@@ -144,41 +152,38 @@ const RoundTwo = () => {
     }
   };
 
-  const gameData = [
-    {
-      q: "Name a food that comes in a box.",
-      a1: "cereal",
-      a2: "macaroni and cheese",
-      a3: "crackers",
-      a4: "hamburger helper",
-      a5: "donuts",
-      a6: "popcorn",
-      a7: "pizza",
-      s1: 43,
-      s2: 14,
-      s3: 13,
-      s4: 5,
-      s5: 5,
-      s6: 5,
-      s7: 5,
-    },
-    {
-      q: "Name One Of Santa’s Reindeer	",
-      a1: "rudolph",
-      a2: "donder",
-      a3: "blitzen",
-      a4: "dancer",
-      a5: "vixen",
-      a6: "cupid",
-      a7: "prancer",
-      s1: 52,
-      s2: 10,
-      s3: 9,
-      s4: 8,
-      s5: 7,
-      s6: 6,
-      s7: 5,
-    },
+  const [isRound1QuestionActive, setIsRound1QuestionActive] = useState(false)
+
+  const gameQuestions = [
+      "Name a food that comes in a box.", 
+      "what 9 + 10"
+  ]
+    
+
+    const gameAnsweres = [
+      "macaroni and cheese",
+      "crackers",
+      "hamburger helper",
+      "donuts",
+      "popcorn",
+      "pizza"
+    ]
+
+   
+      
+    if (gameQuestions[0]){
+    for (i = 0; i < gameAnsweres.length; i ++){
+      if (team1Answer === "pizza"){
+        setteam1Points (team1points + 10)
+      }
+  
+      if (team1Answer === "crackers"){
+        setteam1Points (team1points + 36)
+      }
+    }
+  }
+
+    
     // {
     //   q: '',
     //   a1: '',
@@ -196,7 +201,7 @@ const RoundTwo = () => {
     //   s6: ,
     //   s7:
     // }
-  ];
+  ;
 
   const populateData = () => {
     setQuestion(q);
@@ -310,6 +315,7 @@ const RoundTwo = () => {
         <Modal.Body>
           {!isRunning && showButton && (
             <div>
+              <div>{gameQuestions[0]}</div>
               <div>
                 Congrats {currentTeam}, YOUR FIRST! Pick your team name:
                 <div>
