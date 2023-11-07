@@ -15,12 +15,12 @@ function FinalRound() {
     }
   }, [score]);
 
-  
-  const handleSubmitAnswers = () => {
-    const newScores = Uinput.map((userInput, index) => {
-      const userAnswerValue = Uinput.toLowerCase;
-      if (currentQuestion.answer.includes(userAnswerValue)) {
-        //what you want to happen
+
+//   const handleSubmitAnswers = () => {
+//     const newScores = Uinput.map((userInput, index) => {
+//       const userAnswerValue = Uinput.toLowerCase;
+//       if (currentQuestion.answer.includes(userAnswerValue)) {
+//         //what you want to happen
       }
     }
     
@@ -32,33 +32,15 @@ function FinalRound() {
   return (
     <div>
       <h1>Final round question</h1>
-      <h3>{currentQuestion.question}</h3>
-      <div>
-        <div className="rectangle">
-          <div className="Container">
-            {list.map((e) => (
-              <div>
-                <div className="ListRectangle">{e.answer}</div>
-                <div className="Square">{e.score}</div>
-              </div>
-            ))}
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
+   {finalRoundData.map((round, index) => (
+    <div key={index}>
+     <h3>{round.question}</h3>
+     <div className="rectangle">
+      {round.answer.map((answer, answerIndex) => (
+       <div className="Container" key={answerIndex}>
+        <div className="ListRectangle">{answer.answer}</div>
+        <div className="Square”>{answer.score}</div>
+       </div>
           <input
             className="input"
             placeholder="Answer Here!"

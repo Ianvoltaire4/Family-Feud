@@ -26,7 +26,7 @@ const RoundTwo = () => {
   const [currentTeam, setCurrentTeam] = useState("");
   const [otherTeam, setOtherTeam] = useState("");
   const [teamName, setTeamName] = useState("");
-  const [otherTeamName, setOtherTeamName]=useState("")
+  const [otherTeamName, setOtherTeamName] = useState("");
   const [time, setTime] = useState(1000);
   const [teamOneX, setTeamOneX] = useState(0);
   const [teamTwoX, setTeamTwoX] = useState(0);
@@ -65,16 +65,16 @@ const RoundTwo = () => {
   const handleTeamName = () => {
     setCurrentTeam(teamName);
   };
-  const handleOtherTeamName=()=>{
-    setOtherTeam(otherTeamName)
-  }
+  const handleOtherTeamName = () => {
+    setOtherTeam(otherTeamName);
+  };
 
   const handleInputChange = (e) => {
     setTeamName(e.target.value);
   };
-  const handleOtherInputChange=(e)=>{
-    setOtherTeamName(e.target.value)
-  }
+  const handleOtherInputChange = (e) => {
+    setOtherTeamName(e.target.value);
+  };
 
   const hours = Math.floor(time / 360000);
   const min = Math.floor((time % 360000) / 6000);
@@ -104,15 +104,14 @@ const RoundTwo = () => {
     setLgShow(true);
   }, [showButton]);
 
-
   const handleStart = () => {
     setTimeout(() => {
       startAndStop();
       setGameStarted(true);
       setShowStartMenu(false); // Hide the start menu after starting the game
-      setLgShow(false); 
+      setLgShow(false);
       setCurrentTeam(teamName);
-      setOtherTeam(otherTeamName)
+      setOtherTeam(otherTeamName);
     }, []);
     populateData;
   };
@@ -225,7 +224,7 @@ const RoundTwo = () => {
 
   const handleRoundOver = () => {
     let boardCleared = false;
-  
+
     // Check if the answers are correct for the current team
     if (
       (currentTeam === "Team One" &&
@@ -248,11 +247,12 @@ const RoundTwo = () => {
       console.log("YOU HAVE CLEARED THE BOARD");
       boardCleared = true;
     }
-  
+
     // Check if the other team stole points
     if (!boardCleared) {
       if (
-        (wrongAnswersTeamOne === maxWrongAnswers && currentTeam === "Team Two") ||
+        (wrongAnswersTeamOne === maxWrongAnswers &&
+          currentTeam === "Team Two") ||
         (wrongAnswersTeamTwo === maxWrongAnswers && currentTeam === "Team One")
       ) {
         if (
@@ -263,13 +263,34 @@ const RoundTwo = () => {
         ) {
           console.log(`${otherTeam}, YOU HAVE STOLEN`);
         } else {
-          console.log(`${otherTeam} HAS LOST THE STEAL, ${currentTeam} YOU TAKE THE POINTS`);
+          console.log(
+            `${otherTeam} HAS LOST THE STEAL, ${currentTeam} YOU TAKE THE POINTS`
+          );
         }
       } else {
         console.log("NO ONE TAKES THE POINTS");
       }
     }
   };
+
+  //for rendering multiple returns
+  // const handleTurn=()=>{
+  //   if(coinFlip == "heads"){
+  //     return(
+  //       <>
+  
+  //       </>
+  //     )
+  //   }else{
+  //     return(
+  //       <>
+  
+  //       </>
+  //     )
+  //   }
+  // }
+
+
   return (
     <>
       <Button onClick={() => setLgShow(true)}>START GAME</Button>
@@ -290,18 +311,27 @@ const RoundTwo = () => {
               <div>
                 Congrats {currentTeam}, YOUR FIRST! Pick your team name:
                 <div>
-                <input type="text" placeholder="ENTER TEAM NAME" value={teamName} onChange={handleInputChange}/>
-                <button onClick={handleTeamName}> Save Name</button>
+                  <input
+                    type="text"
+                    placeholder="ENTER TEAM NAME"
+                    value={teamName}
+                    onChange={handleInputChange}
+                  />
+                  <button onClick={handleTeamName}> Save Name</button>
                 </div>
                 <div>
-                <input type="text" placeholder="ENTER TEAM NAME" value={otherTeamName} onChange={handleOtherInputChange}/>
-                <button onClick={handleOtherTeamName}> Save Name</button>
+                  <input
+                    type="text"
+                    placeholder="ENTER TEAM NAME"
+                    value={otherTeamName}
+                    onChange={handleOtherInputChange}
+                  />
+                  <button onClick={handleOtherTeamName}> Save Name</button>
                 </div>
               </div>
               <button id="start" onClick={handleStart}>
                 Start Game
                 {/* PUT COINFLIP LOGIC HERE */}
-
               </button>
             </div>
           )}
@@ -339,8 +369,6 @@ const RoundTwo = () => {
       wrongAnswersTeamOne === maxWrongAnswers ||
       wrongAnswersTeamTwo === maxWrongAnswers ? (
         <div>
-
-
           <h1>DING DING DING DING, TIMES UP{handleTeamSwitch}</h1>
           <h1>{currentTeam} you have lost you're turn</h1>
           <h3>
@@ -380,18 +408,3 @@ const RoundTwo = () => {
 
 export default RoundTwo;
 
-// const handleTurn=()=>{
-//   if(coinFlip == "heads"){
-//     return(
-//       <>
-
-//       </>
-//     )
-//   }else{
-//     return(
-//       <>
-
-//       </>
-//     )
-//   }
-// }
