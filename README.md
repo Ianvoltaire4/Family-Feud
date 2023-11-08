@@ -1,5 +1,5 @@
-# Family-Feud
-Title: Family Feud Inspired Project
+
+Title: What do you know?
 
 Description:
 Our project draws inspiration from the popular game show, Family Feud. It features a dynamic setup with three key roles: two teams and a host. The host's responsibilities include managing the submission process and ensuring that users' responses are not duplicated.
