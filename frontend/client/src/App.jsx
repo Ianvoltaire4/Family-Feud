@@ -3,6 +3,8 @@ import Registration from './components/Registration'
 import RoundTwo from './components/RoundTwo'
 import FinalRound from './components/FinalRound'
 import Homepage from './Homepage'
+import YourComponent from './components/YourComponent'
+import Gamelayout from './components/Gamelayout'
 import { Routes, Route, Link } from 'react-router-dom'
 
 

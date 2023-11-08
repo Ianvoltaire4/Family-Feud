@@ -120,10 +120,10 @@ app.get("/api", (req, res)=>{
 
 
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   // Perform authentication logic here (e.g., checking credentials against a database)
-  if (username === Users.username && password === Users.password) {
+  if (email === Users.email && password === Users.password) {
     res.status(200).send('Login successful' );
   } else {
     res.status(401).send('Invalid username or password');

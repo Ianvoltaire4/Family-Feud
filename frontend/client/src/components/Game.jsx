@@ -1,11 +1,12 @@
 import React from 'react'
 import RoundTwo from './RoundTwo'
+import YourComponent from './YourComponent'
 
 const Game = () => {
 
   return (
     <>
-    <RoundTwo />
+    <YourComponent />
     </>
   )
 }
