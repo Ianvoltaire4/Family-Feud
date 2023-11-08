@@ -41,3 +41,9 @@ button:hover{
   font-size: 40px;
     color: aliceblue;
 }
+
+.reg{
+  font-size: 25px;
+  color: aliceblue;
+  border-color: midnightblue;
+}

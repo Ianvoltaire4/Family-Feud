@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './Game.css'
 
 import { Link } from "react-router-dom";
 import CoinFlip from "./CoinFlip"
@@ -351,7 +352,20 @@ const handleAnwers=()=>{
   //     )
   //   }
   // }
+// ================================================================
 
+const handleAnswer = (answer, team) => {
+  if (gameQuestions.length > 0) {
+    const score = gameAnswersWithScores[answer.toLowerCase()];
+    if (score !== undefined) {
+      if (team === 1) {
+        setTeam1Points(team1Points + score);
+      } else if (team === 2) {
+        setTeam2Points(team2Points + score);
+      }
+    }
+  }
+};
 
   return (
     <>
@@ -371,7 +385,7 @@ const handleAnwers=()=>{
     </>
 
     {/* ==================================================== */}
-      <Button onClick={() => setLgShow(true)}></Button>
+      <Button onClick={() => setLgShow(true)}>FlipCoin</Button>
       <Modal
         size="lg"
         show={lgShow}
@@ -380,7 +394,7 @@ const handleAnwers=()=>{
         >
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
-            GAME RULES: <h6 id="rules">dgoidnvknoeinhjvcgvjhbjnlbhvjgchfvbnknvkjkdfvjklmdfjhnvkldmnjbhfjivnkfbdliv;jlkndfbhlvnlkdfjbvndflkjbhlvndklmcnfjbvhldfnclkmvnjblhdfknkcmlvnjbhdflcnvklm/njbhfdvimknjedfbjkmvnjdfj.nvmkndjf jnkvmndj.fcknmvdfnj vnkmdfnj vnmkdfn v.ndfmk/cv nfndkm vndcm/k df.mcfdnvnkfcvmdfk cmvmfc/ fnmck nckm vfmmdc,mcdm k.fdcmkcilibvcvbnm;nbuiyvutcrytvubnimnubiyvtcvbv</h6>
+            GAME RULES: <h6 id="rules">Players on the team answer one at a time, within 10 seconds of hearing the question, with no help from their other teammates. If a player incorrectly guesses or doesn't provide a guess in time, the team receives a strike. When a team reaches 3 strikes, the opposing team has a chance to steal the board.</h6>
         {!isRunning && showButton && (
           <div>
             {/* <div>{gameQuestions[0]}</div> */}
@@ -516,6 +530,10 @@ wrongAnswersTeamOne === maxWrongAnswers || wrongAnswersTeamTwo === maxWrongAnswe
           </div>
         )}
       </div>
+
+      {/* ============================================= */}
+
+
     </>
   );
 };

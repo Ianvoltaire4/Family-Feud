@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import './Round.css'
+import './Game.css'
 
 function Roundthree() {
-  const [team1Points, setTeam1Points] = useState(0);
-  const [team2Points, setTeam2Points] = useState(0);
-  const [team1Answer, setTeam1Answer] = useState('');
-  const [team2Answer, setTeam2Answer] = useState('');
-  const gameQuestions = ["Name a food that comes in a box"];
+  const [team1Points, setTeam1Points] = useState(0); //teamOneScore
+  const [team2Points, setTeam2Points] = useState(0); //teamTwoScore
+  const [team1Answer, setTeam1Answer] = useState(''); //teamOneInput
+  const [team2Answer, setTeam2Answer] = useState(''); //teamTwoInput
+  const gameQuestions = ["Name a food that comes in a box"]; //question
   const gameAnswersWithScores = {
     "macaroni and cheese": 20,
     "crackers": 15,
