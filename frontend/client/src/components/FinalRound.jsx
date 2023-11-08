@@ -43,22 +43,8 @@ function FinalRound() {
               </div>
             ))}
           </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
+       </div>
+
           <input
             className="input"
             placeholder="Answer Here!"
