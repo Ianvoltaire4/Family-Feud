@@ -5,6 +5,7 @@ import Scorboard from './components/Scorboard'
 import FinalRound from './components/FinalRound'
 import Homepage from './Homepage'
 
+
 const App = () => {
   return (
     <>
@@ -14,5 +15,4 @@ const App = () => {
     </>
   )
 }
-
 export default App

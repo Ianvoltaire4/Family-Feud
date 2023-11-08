@@ -8,10 +8,7 @@ const Questions = () => {
     [answers:{"drake, weekend, meek"}];
   // value is equal
   return (
-    <>
-    {/* <second pic with barchetxero></second> */}
-    </>
-    
+    <div>Questions</div>
   )
 }
 
