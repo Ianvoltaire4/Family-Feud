@@ -1,0 +1,334 @@
+.body {
+display: flex;
+justify-content: center;
+align-content: center;
+align-self: center;
+}
+
+.PageBody {
+    display: grid;
+justify-content: center;
+align-content: center;
+align-self: center;
+    grid-template-rows: 75px 115px 115px 115px 115px 115px 50px;
+    grid-template-columns: 15% 35% 35% 15%;
+}
+
+.PlayerTopBar {
+    background-color: red;
+    grid-row: 1/1;
+    grid-column: 1/5;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.Player1 {
+    background-color: rgb(142, 197, 59);
+    color: white;
+    height: 45px;
+    width: 150px;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+    margin-left: 10px;
+}
+
+.Player2 {
+    background-color: rgb(142, 197, 59);
+    color: white;
+    height: 45px;
+    width: 150px;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+    margin-right: 10px;
+}
+
+.P1_Xbox {
+    height: 100px;
+    width: 150px;
+    grid-row: 2/2;
+    grid-column: 1/1;
+    background-color: rgb(88, 88, 182);
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    align-self: center;
+    justify-self: center;
+
+}
+
+.P2_Xbox {
+    height: 100px;
+    width: 150px;
+    grid-row: 2/2;
+    grid-column: 4;
+    background-color: rgb(88, 88, 182);
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    align-self: center;
+    justify-self: center;
+
+}
+
+.XBox {
+    height: 45px;
+    width: 45px;
+    background-color: rgb(255, 13, 0);
+    margin: 5px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+ /* Some of this code is unnecessary */
+.ScoreBoard {
+    height: 100px;
+    width: 225px;
+    background-color: blue;
+    border: solid 7px black;
+    display: flex;
+    grid-row: 2;
+    grid-column: 1/5;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: xx-large;
+
+}
+
+.Answer1 {
+    background-color: rgb(0, 145, 255);
+    border: solid 5.5px black;
+    grid-row: 3;
+    grid-column: 2/3;
+}
+
+.Answer2 {
+    background-color: rgb(0, 145, 255);
+    border: solid 5.5px black;
+    grid-row: 3;
+    grid-column: 3/4;
+}
+
+.Answer3 {
+    background-color: rgb(0, 145, 255);
+    border: solid 5.5px black;
+    grid-row: 4;
+    grid-column: 2/3;
+}
+
+.Answer4 {
+    background-color: rgb(0, 145, 255);
+    border: solid 5.5px black;
+    grid-row: 4;
+    grid-column: 3/4;
+}
+
+.Answer5 {
+    background-color: rgb(0, 145, 255);
+    border: solid 5.5px black;
+    grid-row: 5;
+    grid-column: 2/3;
+}
+
+.Answer6 {
+    background-color: rgb(0, 145, 255);
+    border: solid 5.5px black;
+    grid-row: 5;
+    grid-column: 3/4;
+}
+
+.Answer7 {
+    background-color: rgb(0, 145, 255);
+    border: solid 5.5px black;
+    grid-row: 6;
+    grid-column: 2/3;
+}
+
+.Answer8 {
+    background-color: rgb(0, 145, 255);
+    border: solid 5.5px black;
+    grid-row: 6;
+    grid-column: 3/4;
+}
+
+.PlayerBottomBar {
+    background-color: red;
+    grid-row: 7;
+    grid-column: 1/5;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.WrongAnswer1 {
+    background-color: rgb(212, 212, 212);
+    color: red;
+    height: 45px;
+    width: 150px;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+    margin-left: 10px;
+}
+
+.NextRoundButton {
+
+    background-color: rgb(142, 197, 59);
+    color: white;
+    height: 45px;
+    width: 300px;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+
+
+}
+
+.WrongAnswer2 {
+
+    background-color: rgb(212, 212, 212);
+    color: red;
+    height: 45px;
+    width: 150px;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+    margin-right: 10px;
+}
+
+.Player1ScoreTab{
+    height: 50px;
+    width: 160px;
+    background-color: blue;
+    border: solid 5px black;
+    display: flex;
+    grid-row: 4;
+    grid-column: 1;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.Player1Score{
+    height: 125px;
+    width: 125px;
+    background-color: blue;
+    border: solid 5px black;
+    display: flex;
+    grid-row: 5;
+    grid-column: 1;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: xx-large;
+}
+
+.Player2ScoreTab{
+    height: 50px;
+    width: 160px;
+    background-color: blue;
+    border: solid 5px black;
+    display: flex;
+    grid-row: 4;
+    grid-column: 4;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.Player2Score{
+    height: 125px;
+    width: 125px;
+    background-color: blue;
+    border: solid 5px black;
+    display: flex;
+    grid-row: 5;
+    grid-column: 4;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: xx-large;
+}
+
+.PlayerInput1{
+    height: 50px;
+    width: 160px;
+    background-color: blue;
+    border: solid 5px black;
+    display: flex;
+    grid-row: 3;
+    grid-column: 1;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.PlayerInput2{
+    height: 50px;
+    width: 160px;
+    background-color: blue;
+    border: solid 5px black;
+    display: flex;
+    grid-row: 3;
+    grid-column: 4;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}

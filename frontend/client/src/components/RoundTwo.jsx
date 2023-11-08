@@ -1,20 +1,36 @@
-//need to make functions to hide buttons, create logic to end a round when won(if one wins by steal, if one wins by clearing board, if one wins by losing the steal, if both teams lose from x), ,
+//need to make functions to hide buttons, create logic to end a round when won( if both teams lose from x)
 
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+import { Link } from "react-router-dom";
+import CoinFlip from "./CoinFlip"
 
 const RoundTwo = () => {
+  //inputs for both teams
   const [teamOneInput, setTeamOneInput] = useState("");
   const [teamTwoInput, setTeamTwoInput] = useState("");
   const [question, setQuestion] = useState("");
-  //   const [answerOne, setAnswerOne] = useState('');
-  //   const [answerTwo, setAnswerTwo] = useState('');
-  const [answerThree, setAnswerThree] = useState("");
-  const [answerFour, setAnswerFour] = useState("");
-  const [answerFive, setAnswerFive] = useState("");
-  const [answerSix, setAnswerSix] = useState("");
-  const [answerSeven, setAnswerSeven] = useState("");
+  const [answerOne, setAnswerOne] = useState("one");
+  const [answerTwo, setAnswerTwo] = useState("two");
+  const [answerThree, setAnswerThree] = useState("three");
+  const [answerFour, setAnswerFour] = useState("four");
+  const [answerFive, setAnswerFive] = useState("five");
+  const [answerSix, setAnswerSix] = useState("six");
+  const [answerSeven, setAnswerSeven] = useState("seven");
+  const [answerOneScore, setAnswerOneScore] = useState("");
+  const [answerTwoScore, setAnswerTwoScore] = useState("");
+  const [answerThreeScore, setAnswerThreeScore] = useState("");
+  const [answerFourScore, setAnswerFourScore] = useState("");
+  const [answerFiveScore, setAnswerFiveScore] = useState("");
+  const [answerSixScore, setAnswerSixScore] = useState("");
+  const [answerSevenScore, setAnswerSevenScore] = useState("");
   const [currentTeam, setCurrentTeam] = useState("");
   const [otherTeam, setOtherTeam] = useState("");
+  const [teamName, setTeamName] = useState("");
+  const [otherTeamName, setOtherTeamName] = useState("");
   const [time, setTime] = useState(1000);
   const [teamOneX, setTeamOneX] = useState(0);
   const [teamTwoX, setTeamTwoX] = useState(0);
@@ -26,10 +42,20 @@ const RoundTwo = () => {
   const [showButton, setShowButton] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
-  let answerOne = "one";
-  let answerTwo = "two";
-
+  const [showStartMenu, setShowStartMenu] = useState(true);
+  //bootstrap
+  const [smShow, setSmShow] = useState(false);
+  const [lgShow, setLgShow] = useState(false);
+  const [show, setShow]=useState(false)
+  const values = [true, 'sm-down', 'md-down', 'lg-down', 'xl-down', 'xxl-down'];
+  const [fullscreen, setFullscreen] = useState(true);
+  function handleShow(breakpoint) {
+    setFullscreen(breakpoint);
+    setShow(true);
+  }
   const maxWrongAnswers = 3;
+  let boardCleared = false;
+  let content;
 
   useEffect(() => {
     let intervalId;
@@ -48,6 +74,20 @@ const RoundTwo = () => {
     return () => clearInterval(intervalId);
   }, [isRunning]);
 
+  const handleTeamName = () => {
+    setCurrentTeam(teamName);
+  };
+  const handleOtherTeamName = () => {
+    setOtherTeam(otherTeamName);
+  };
+
+  const handleInputChange = (e) => {
+    setTeamName(e.target.value);
+  };
+  const handleOtherInputChange = (e) => {
+    setOtherTeamName(e.target.value);
+  };
+
   const hours = Math.floor(time / 360000);
   const min = Math.floor((time % 360000) / 6000);
   const sec = Math.floor((time % 6000) / 100);
@@ -65,21 +105,32 @@ const RoundTwo = () => {
     setOtherTeam(otherTeam === "Team Two" ? "Team One" : "Team Two");
   };
 
-  const populateData = () => {
-    //write the function to populate the data in the div
-  };
+  useEffect(() => {
+    if (!showButton) {
+      const hideButton = setTimeout(() => {
+        setShowButton(false);
+      }, 5000);
+      return () => clearTimeout(hideButton);
+    }
+    startAndStop;
+    setLgShow(true);
+  }, [showButton]);
 
   const handleStart = () => {
     setTimeout(() => {
       startAndStop();
       setGameStarted(true);
-    }, 5000);
+      setShowStartMenu(false); // Hide the start menu after starting the game
+      setLgShow(false);
+      setCurrentTeam(teamName);
+      setOtherTeam(otherTeamName);
+    }, []);
     populateData;
   };
 
   const teamOneWrongAnswer = () => {
-    // Compare the teamOneInput with the correct answer (answerOne)
-    if (teamOneInput.toLowerCase() !== answerOne.toLowerCase()) {
+    // Compares the teamOneInput with the correct answer (answerOne)
+    if (teamOneInput.toLowerCase !== answerOne.toLowerCase) {
       // if timer is zero then swtich team
       // Increment the score for Team One
       setTeamOneX(teamOneX + 1);
@@ -92,7 +143,7 @@ const RoundTwo = () => {
   };
   const teamTwoWrongAnswer = () => {
     // Compare the teamTwoInput with the correct answer (answerTwo)
-    if (teamTwoInput.toLowerCase() !== answerTwo.toLowerCase()) {
+    if (teamTwoInput.toLowerCase !== answerTwo.toLowerCase) {
       // Increment the score for Team Two
       setTeamTwoX(teamTwoX + 1);
     }
@@ -102,33 +153,243 @@ const RoundTwo = () => {
       // hide the button for team two function here
     }
   };
-  useEffect(() => {
-    if (!showButton) {
-      const hideButton = setTimeout(() => {
-        setShowButton(false);
-      }, 5000);
-      return () => clearTimeout(hideButton);
+
+  const [isRound1QuestionActive, setIsRound1QuestionActive] = useState(false)
+
+  const gameQuestions = [
+      "Name a food that comes in a box.", 
+      "what 9 + 10"
+  ]
+    
+
+    const gameAnsweres = [
+      "macaroni and cheese",
+      "crackers",
+      "hamburger helper",
+      "donuts",
+      "popcorn",
+      "pizza"
+    ]
+
+   
+      
+    if (gameQuestions[0]){
+    for (i = 0; i < gameAnsweres.length; i ++){
+      if (team1Answer === "pizza"){
+        setteam1Points (team1points + 10)
+      }
+  
+      if (team1Answer === "crackers"){
+        setteam1Points (team1points + 36)
+      }
     }
-  }, [showButton]);
+  }
+
+    
+    // {
+    //   q: '',
+    //   a1: '',
+    //   a2: '',
+    //   a3: '',
+    //   a4: '',
+    //   a5: '',
+    //   a6: '',
+    //   a7: '',
+    //   s1: ,
+    //   s2: ,
+    //   s3: ,
+    //   s5: ,
+    //   s4: ,
+    //   s6: ,
+    //   s7:
+    // }
+  ;
+
+  const populateData = () => {
+    setQuestion(q);
+    setAnswerOne(a1);
+    setAnswerTwo(a2);
+    setAnswerThree(a3);
+    setAnswerFour(a4);
+    setAnswerFive(a5);
+    setAnswerSix(a6);
+    setAnswerSeven(a7);
+    //populate scores too here mabye
+  };
+
+  const assignPoints = () => {
+    //make if else statements for giving points based on what answer the user gets right
+  };
+
+  const handleCorrectAnswer = () => {
+    for (let i = 0; i < gameData.length; i++) {
+      const randomIndex = Math.floor(Math.random() * gameData.length);
+      const randomObject = gameData[randomIndex];
+
+      return populateData(randomObject);
+    }
+    console.log(populateData(randomObject));
+  };
+
+  const handleRoundOver = () => {
+    let boardCleared = false;
+
+    // Check if the answers are correct for the current team
+    if (
+      (currentTeam === "Team One" &&
+        teamOneInput.toLowerCase() === answerOne.toLowerCase() &&
+        answerTwo &&
+        answerThree &&
+        answerFour &&
+        answerFive &&
+        answerSix &&
+        answerSeven) ||
+      (currentTeam === "Team Two" &&
+        teamTwoInput.toLowerCase() === answerOne.toLowerCase() &&
+        answerTwo &&
+        answerThree &&
+        answerFour &&
+        answerFive &&
+        answerSix &&
+        answerSeven)
+    ) {
+      console.log("YOU HAVE CLEARED THE BOARD");
+      boardCleared = true;
+    }
+
+    // Check if the other team stole points
+    if (!boardCleared) {
+      if (
+        (wrongAnswersTeamOne === maxWrongAnswers &&
+          currentTeam === "Team Two") ||
+        (wrongAnswersTeamTwo === maxWrongAnswers && currentTeam === "Team One")
+      ) {
+        if (
+          (currentTeam === "Team Two" &&
+            teamTwoInput.toLowerCase() === answerOne.toLowerCase()) ||
+          (currentTeam === "Team One" &&
+            teamOneInput.toLowerCase() === answerOne.toLowerCase())
+        ) {
+          console.log(`${otherTeam}, YOU HAVE STOLEN`);
+        } else {
+          console.log(
+            `${otherTeam} HAS LOST THE STEAL, ${currentTeam} YOU TAKE THE POINTS`
+          );
+        }
+      } else {
+        console.log("NO ONE TAKES THE POINTS");
+      }
+    }
+  };
+
+  //for rendering multiple returns
+  // const handleTurn=()=>{
+  //   if(coinFlip == "heads"){
+  //     return(
+  //       <>
+  
+  //       </>
+  //     )
+  //   }else{
+  //     return(
+  //       <>
+  
+  //       </>
+  //     )
+  //   }
+  // }
+
 
   return (
     <>
+      <Button onClick={() => setLgShow(true)}>START GAME</Button>
+      <Modal
+        size="lg"
+        show={lgShow}
+        onHide={() => setLgShow(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">
+            GAME RULES
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {!isRunning && showButton && (
+            <div>
+              <div>{gameQuestions[0]}</div>
+              <div>
+                Congrats {currentTeam}, YOUR FIRST! Pick your team name:
+                <div>
+                  <input
+                    type="text"
+                    placeholder="ENTER TEAM NAME"
+                    value={teamName}
+                    onChange={handleInputChange}
+                  />
+                  <button onClick={handleTeamName}> Save Name</button>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="ENTER TEAM NAME"
+                    value={otherTeamName}
+                    onChange={handleOtherInputChange}
+                  />
+                  <button onClick={handleOtherTeamName}> Save Name</button>
+                </div>
+              </div>
+              <button id="start" onClick={handleStart}>
+                Start Game
+                {/* PUT COINFLIP LOGIC HERE */}
+              </button>
+            </div>
+          )}
+        </Modal.Body>
+      </Modal>
+
+      <div id="board">
+        <div>{question}</div>
+        <div id="answers">
+          <div id="answer1" className="allAnswers">
+            {answerOne} <strong>{answerOneScore}</strong>
+          </div>
+          <div id="answer2" className="allAnswers">
+            {answerTwo} <strong>{answerTwoScore}</strong>
+          </div>
+          <div id="answer3" className="allAnswers">
+            {answerThree} <strong>{answerThreeScore}</strong>
+          </div>
+          <div id="answer4" className="allAnswers">
+            {answerFour} <strong>{answerFourScore}</strong>
+          </div>
+          <div id="answer5" className="allAnswers">
+            {answerFive} <strong>{answerFiveScore}</strong>
+          </div>
+          <div id="answer6" className="allAnswers">
+            {answerSix} <strong>{answerSixScore}</strong>
+          </div>
+          <div id="answer7" className="allAnswers">
+            {answerSeven} <strong>{answerSevenScore}</strong>
+          </div>
+        </div>
+      </div>
+
       {(hours === 0 && min === 0 && sec === 0 && millisec === 0) ||
       wrongAnswersTeamOne === maxWrongAnswers ||
-      wrongAnswersTeamTwo ? (
+      wrongAnswersTeamTwo === maxWrongAnswers ? (
         <div>
-          {handleTeamSwitch}
-          <h1>DING DING DING DING, TIMES UP</h1>
+          <h1>DING DING DING DING, TIMES UP{handleTeamSwitch}</h1>
+          <h1>{currentTeam} you have lost you're turn</h1>
           <h3>
-            On to the next team! {currentTeam} you're up! All you need to do to
+            On to the next team! {otherTeam} you're up! All you need to do to
             take the points for this round, is guess one more item on the board.
-            If its not there then {otherTeam} take this round!!!
+            If its not there then {currentTeam} take this round!!!
           </h3>
 
-          <button id="switch-teams" onClick={handleTeamSwitch}>
-            Switch {console.log(`${currentTeam} its your turn`)}
-            {console.log(`${otherTeam} your up next`)}
-          </button>
+          {/* <button id="switch-teams" onClick={handleTeamSwitch}>
+            switch
+          </button> */}
         </div>
       ) : (
         <>
@@ -136,23 +397,18 @@ const RoundTwo = () => {
           {millisec.toString().padStart(2, "0")}
         </>
       )}
-      {!isRunning && showButton && (
-        <button id="start" onClick={handleStart}>
-          Start Game
-        </button>
-      )}
 
       <div>
         {wrongAnswersTeamOne < maxWrongAnswers && (
           <div>
-            Team One Answer: <input type="text" />
-            <button onClick={teamOneWrongAnswer}></button>
+            {currentTeam}: <input id="currentTeam" type="text" onChange={setTeamOneInput} />
+            <button onClick={teamOneWrongAnswer}>enter</button>
           </div>
         )}
         {wrongAnswersTeamTwo < maxWrongAnswers && (
           <div>
-            Team Two Answer: <input type="text" />
-            <button onClick={teamTwoWrongAnswer}></button>
+            {otherTeam}: <input id="otherTeam" type="text" onChange={setTeamTwoInput} />
+            <button onClick={teamTwoWrongAnswer}>enter</button>
           </div>
         )}
       </div>
@@ -161,3 +417,4 @@ const RoundTwo = () => {
 };
 
 export default RoundTwo;
+
