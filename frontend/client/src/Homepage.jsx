@@ -32,7 +32,7 @@ const Homepage = () => {
       <a href="Login">
         <button>Login</button>
       </a>
-      <a href="Sign-Up">
+      <a href="Registration">
         <button>Sign-Up</button>
       </a>
     </>

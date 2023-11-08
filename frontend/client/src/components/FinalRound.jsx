@@ -50,7 +50,6 @@ function FinalRound() {
           <button onClick={handleSubmitAnswers}>Submit Answer</button>
         </div>
       </div>
-    </div>
   );
 }
 export default FinalRound;
