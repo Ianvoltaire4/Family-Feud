@@ -1,0 +1,24 @@
+div {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  input[type="text"] {
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  /* Add styles for buttons */
+  button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  p {
+    font-size: 20px;
+    margin: 10px 0;
+  }

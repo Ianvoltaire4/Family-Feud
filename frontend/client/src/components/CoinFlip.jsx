@@ -5,9 +5,10 @@ import '../Flipcoin.css'
 function Flipcoin() {
 const[flip,setFlip] = useState()
 const flipCoin = () => {
-    const random = Math.random() < 0.5 ? 'Heads' : 'TAILS, ';
+    const random = Math.random() < 0.5 ? "Heads, youre up first" : "Tails, you're up first";
     setFlip(random);
 }
+
   return (
     <div>
         <h2>Flip a Coin</h2>

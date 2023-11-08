@@ -7,30 +7,33 @@ import { Link } from "react-router-dom";
 import CoinFlip from "./CoinFlip"
 import Flipcoin from "./CoinFlip";
 
+
+
 const RoundTwo = () => {
   //inputs for both teams
   const [teamOneInput, setTeamOneInput] = useState("");
   const [teamTwoInput, setTeamTwoInput] = useState("");
-  const [question, setQuestion] = useState("");
-  const [answerOne, setAnswerOne] = useState("one");
-  const [answerTwo, setAnswerTwo] = useState("two");
-  const [answerThree, setAnswerThree] = useState("three");
-  const [answerFour, setAnswerFour] = useState("four");
-  const [answerFive, setAnswerFive] = useState("five");
-  const [answerSix, setAnswerSix] = useState("six");
-  const [answerSeven, setAnswerSeven] = useState("seven");
-  const [answerOneScore, setAnswerOneScore] = useState("");
-  const [answerTwoScore, setAnswerTwoScore] = useState("");
-  const [answerThreeScore, setAnswerThreeScore] = useState("");
-  const [answerFourScore, setAnswerFourScore] = useState("");
-  const [answerFiveScore, setAnswerFiveScore] = useState("");
-  const [answerSixScore, setAnswerSixScore] = useState("");
-  const [answerSevenScore, setAnswerSevenScore] = useState("");
+
+  const [question, setQuestion] = useState("Name a food that comes in a box?");
+  const [answerOne, setAnswerOne] = useState("pizza");
+  const [answerTwo, setAnswerTwo] = useState("macarone and cheese");
+  const [answerThree, setAnswerThree] = useState("hamburger");
+  const [answerFour, setAnswerFour] = useState("donuts");
+  const [answerFive, setAnswerFive] = useState("popcorn");
+  const [answerSix, setAnswerSix] = useState("crackers");
+
+  const [answerOneScore, setAnswerOneScore] = useState(30);
+  const [answerTwoScore, setAnswerTwoScore] = useState(25);
+  const [answerThreeScore, setAnswerThreeScore] = useState(20);
+  const [answerFourScore, setAnswerFourScore] = useState(15);
+  const [answerFiveScore, setAnswerFiveScore] = useState(10);
+  const [answerSixScore, setAnswerSixScore] = useState(5);
+
   const [currentTeam, setCurrentTeam] = useState("");
   const [otherTeam, setOtherTeam] = useState("");
   const [teamName, setTeamName] = useState("");
   const [otherTeamName, setOtherTeamName] = useState("");
-  const [time, setTime] = useState(1000);
+  const [time, setTime] = useState(300);
   const [teamOneX, setTeamOneX] = useState(0);
   const [teamTwoX, setTeamTwoX] = useState(0);
   const [teamOneScore, setTeamOneScore] = useState(0);
@@ -62,8 +65,9 @@ const RoundTwo = () => {
       intervalId = setInterval(() => {
         setTime((prevTime) => {
           if (prevTime === 0) {
-            setIsRunning(false); // stopping the timer when time reaches 0
-            setShowButton(false); // hiding the button
+            clearInterval(intervalId); // Clear the interval to stop the timer
+            setShowButton(false); // Hide the button
+            setSmShow(true); // Show the modal
             return 0;
           }
           return prevTime - 1;
@@ -98,11 +102,55 @@ const RoundTwo = () => {
       setShowButton(false);
     }
   };
+  const startAndStopOtherTeam = () => {
+    setIsRunning(!isRunning);
+    if (!isRunning) {
+      setShowButton(false);
+    }
+  };
 
   const handleTeamSwitch = () => {
     setCurrentTeam(currentTeam === "Team One" ? "Team Two" : "Team One");
     setOtherTeam(otherTeam === "Team Two" ? "Team One" : "Team Two");
   };
+  
+  // const gameQuestions = [
+  //     "Name a food that comes in a box.", 
+  //     "what 9 + 10"
+  // ]
+    
+
+  //   const gameAnsweres = [
+  //     "macaroni and cheese",
+  //     "crackers",
+  //     "hamburger helper",
+  //     "donuts",
+  //     "popcorn",
+  //     "pizza"
+  //   ]
+
+
+
+  const questionData = [
+    { answer: "macarone and cheese", score: 10 },
+    { answer: "crackers", score: 8 },
+    { answer: "hamburger", score: 6 },
+    { answer: "donuts", score: 4 },
+    { answer: "popcorn", score: 2 },
+    { answer: "pizza", score: 0 },
+  ];
+  
+  
+  const handleDataPopulation = () => {
+    if (teamOneInput || teamTwoInput === 'pizza'){
+      setTeamOneScore(answerOne)
+    }else if(teamOneInput || teamTwoInput === pizza){
+
+    }
+  };
+
+
+
 
   useEffect(() => {
     if (!showButton) {
@@ -114,6 +162,18 @@ const RoundTwo = () => {
     startAndStop;
     setLgShow(true);
   }, [showButton]);
+  
+  const populateData = () => {
+    setQuestion(q);
+    setAnswerOne(a1);
+    setAnswerTwo(a2);
+    setAnswerThree(a3);
+    setAnswerFour(a4);
+    setAnswerFive(a5);
+    setAnswerSix(a6);
+    setAnswerSeven(a7);
+    //populate scores too here mabye
+  };
 
   const handleStart = () => {
     setTimeout(() => {
@@ -127,6 +187,12 @@ const RoundTwo = () => {
     populateData;
   };
 
+  const reset = () => {
+    setTime(300);
+    startAndStop()
+  };
+
+  //FUNCTION I MADE FOR HANDLING THE DATA FOR A WRONG ANSWWER, NEED TO CHANGE AFTER WE CAN POPULATE THE DATA
   const teamOneWrongAnswer = () => {
     // Compares the teamOneInput with the correct answer (answerOne)
     if (teamOneInput.toLowerCase !== answerOne.toLowerCase) {
@@ -155,20 +221,6 @@ const RoundTwo = () => {
 
   const [isRound1QuestionActive, setIsRound1QuestionActive] = useState(false)
 
-  // const gameQuestions = [
-  //     "Name a food that comes in a box.", 
-  //     "what 9 + 10"
-  // ]
-    
-
-  //   const gameAnsweres = [
-  //     "macaroni and cheese",
-  //     "crackers",
-  //     "hamburger helper",
-  //     "donuts",
-  //     "popcorn",
-  //     "pizza"
-  //   ]
 
    
       
@@ -204,17 +256,6 @@ const RoundTwo = () => {
     // }
   ;
 
-  const populateData = () => {
-    setQuestion(q);
-    setAnswerOne(a1);
-    setAnswerTwo(a2);
-    setAnswerThree(a3);
-    setAnswerFour(a4);
-    setAnswerFive(a5);
-    setAnswerSix(a6);
-    setAnswerSeven(a7);
-    //populate scores too here mabye
-  };
 
   const assignPoints = () => {
     //make if else statements for giving points based on what answer the user gets right
@@ -229,6 +270,13 @@ const RoundTwo = () => {
     }
     console.log(populateData(randomObject));
   };
+
+  // const handleScoreAssignment=()=>{
+  //   if(teamOneInput == question){
+
+  //   }
+  // }
+
 
   const handleRoundOver = () => {
     let boardCleared = false;
@@ -326,21 +374,19 @@ const RoundTwo = () => {
         >
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
-            GAME RULES: <h6>dgoidnvknoeinhjvcgvjhbjnlbhvjgchfvbnilibvcvbnm;nbuiyvutcrytvubnimnubiyvtcvbv</h6>
+            GAME RULES: <h6 id="rules">dgoidnvknoeinhjvcgvjhbjnlbhvjgchfvbnknvkjkdfvjklmdfjhnvkldmnjbhfjivnkfbdliv;jlkndfbhlvnlkdfjbvndflkjbhlvndklmcnfjbvhldfnclkmvnjblhdfknkcmlvnjbhdflcnvklm/njbhfdvimknjedfbjkmvnjdfj.nvmkndjf jnkvmndj.fcknmvdfnj vnkmdfnj vnmkdfn v.ndfmk/cv nfndkm vndcm/k df.mcfdnvnkfcvmdfk cmvmfc/ fnmck nckm vfmmdc,mcdm k.fdcmkcilibvcvbnm;nbuiyvutcrytvubnimnubiyvtcvbv</h6>
         {!isRunning && showButton && (
           <div>
             {/* <div>{gameQuestions[0]}</div> */}
             <div>
-              <Flipcoin />
-              Congrats {currentTeam}, YOUR FIRST! Pick your team name:
               <div>
                 <input
                   type="text"
                   placeholder="ENTER TEAM NAME"
                   value={teamName}
                   onChange={handleInputChange}
-                />
-                <button onClick={handleTeamName}> Save Name</button>
+                  />
+                <button onClick={handleTeamName}> Save name as heads</button>
               </div>
               <div>
                 <input
@@ -348,21 +394,43 @@ const RoundTwo = () => {
                   placeholder="ENTER TEAM NAME"
                   value={otherTeamName}
                   onChange={handleOtherInputChange}
-                />
-                <button onClick={handleOtherTeamName}> Save Name</button>
+                  />
+                <button onClick={handleOtherTeamName}> Save name as tails</button>
               </div>
             </div>
-            <button id="start" onClick={handleStart}>
-              Start Game
-              {/* PUT COINFLIP LOGIC HERE */}
-            </button>
           </div>
         )}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <Flipcoin />
+          <div>
+        Heads: {currentTeam}
+        <br />
+        Tails: {otherTeam}
+        </div>
+            <button id="start" onClick={handleStart}>
+              Start Game
+
+            </button>
         </Modal.Body>
       </Modal>
+
+    {/* ============================================================================================================== */}
+
+    <div>
+  <h1>{question}</h1>
+  <ul>
+    {questionData.map((item, index) => (
+      <li key={index}>
+        <p>{item.answer}: {item.score}pts</p>
+      </li>
+    ))}
+  </ul>
+</div>
+
+    {/* ============================================================================================================== */}
+
 
       <div id="board">
         <div>{question}</div>
@@ -385,28 +453,40 @@ const RoundTwo = () => {
           <div id="answer6" className="allAnswers">
             {answerSix} <strong>{answerSixScore}</strong>
           </div>
-          <div id="answer7" className="allAnswers">
-            {answerSeven} <strong>{answerSevenScore}</strong>
-          </div>
         </div>
       </div>
-
-      {(hours === 0 && min === 0 && sec === 0 && millisec === 0) ||
-      wrongAnswersTeamOne === maxWrongAnswers ||
-      wrongAnswersTeamTwo === maxWrongAnswers ? (
-        <div>
-          <h1>DING DING DING DING, TIMES UP{handleTeamSwitch}</h1>
-          <h1>{currentTeam} you have lost you're turn</h1>
+{time === 0 || wrongAnswersTeamOne === maxWrongAnswers || wrongAnswersTeamTwo === maxWrongAnswers ? (
+        <>
+      <Button onClick={() => setSmShow(true)} className="me-2">
+        Small modal
+      </Button>
+      <Button onClick={() => setLgShow(true)}>Large modal</Button>
+      <Modal
+        size="sm"
+        show={smShow}
+        onHide={() => setSmShow(false)}
+        aria-labelledby="example-modal-sizes-title-sm"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-sm">
+          <h3>DING DING DING DING, TIMES UP {handleTeamSwitch}, {currentTeam} you have lost you're turn</h3>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <h3>
             On to the next team! {otherTeam} you're up! All you need to do to
             take the points for this round, is guess one more item on the board.
             If its not there then {currentTeam} take this round!!!
           </h3>
+          <button >{currentTeam}'s Turn</button>
 
           {/* <button id="switch-teams" onClick={handleTeamSwitch}>
             switch
           </button> */}
-        </div>
+        </Modal.Body>
+      </Modal>
+        </>
+
       ) : (
         <>
           {sec.toString().padStart(2, "0")}:
@@ -424,7 +504,7 @@ const RoundTwo = () => {
         {wrongAnswersTeamTwo < maxWrongAnswers && (
           <div>
             {otherTeam}: <input id="otherTeam" type="text" onChange={setTeamTwoInput} />
-            <button onClick={teamTwoWrongAnswer}>enter</button>
+            <button onClick={teamTwoWrongAnswer}>Enter</button>
           </div>
         )}
       </div>
