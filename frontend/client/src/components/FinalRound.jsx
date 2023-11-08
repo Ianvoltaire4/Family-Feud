@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import '../FinalRound.css';
+// import '../components/Rounds.css';
 function FinalRound() {
   const [answer, setAnswer] = useState([]);
   const [score, setScore] = useState(0);
@@ -14,18 +14,14 @@ function FinalRound() {
       console.log("You have lost, thanks for playing");
     }
   }, [score]);
-
-  
   const handleSubmitAnswers = () => {
     const newScores = Uinput.map((userInput, index) => {
       const userAnswerValue = Uinput.toLowerCase;
       if (currentQuestion.answer.includes(userAnswerValue)) {
         //what you want to happen
       }
-    }
-    
-    );
-    return newScores;
+      return newScores;
+    });
     //update score state
   };
 
@@ -43,22 +39,8 @@ function FinalRound() {
               </div>
             ))}
           </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
-          <div className="Container">
-            <div className="ListRectangle" />
-            <div className="Square" />
-          </div>
+       </div>
+
           <input
             className="input"
             placeholder="Answer Here!"
@@ -68,7 +50,6 @@ function FinalRound() {
           <button onClick={handleSubmitAnswers}>Submit Answer</button>
         </div>
       </div>
-    </div>
   );
 }
 export default FinalRound;
