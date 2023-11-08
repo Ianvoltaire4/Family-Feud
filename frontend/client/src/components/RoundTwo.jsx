@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import CoinFlip from "./CoinFlip"
+import Flipcoin from "./CoinFlip";
 
 const RoundTwo = () => {
   //inputs for both teams
@@ -45,7 +46,7 @@ const RoundTwo = () => {
   const [smShow, setSmShow] = useState(false);
   const [lgShow, setLgShow] = useState(false);
   const [show, setShow]=useState(false)
-  const values = [true, 'sm-down', 'md-down', 'lg-down', 'xl-down', 'xxl-down'];
+  const values = [true];
   const [fullscreen, setFullscreen] = useState(true);
   function handleShow(breakpoint) {
     setFullscreen(breakpoint);
@@ -154,34 +155,34 @@ const RoundTwo = () => {
 
   const [isRound1QuestionActive, setIsRound1QuestionActive] = useState(false)
 
-  const gameQuestions = [
-      "Name a food that comes in a box.", 
-      "what 9 + 10"
-  ]
+  // const gameQuestions = [
+  //     "Name a food that comes in a box.", 
+  //     "what 9 + 10"
+  // ]
     
 
-    const gameAnsweres = [
-      "macaroni and cheese",
-      "crackers",
-      "hamburger helper",
-      "donuts",
-      "popcorn",
-      "pizza"
-    ]
+  //   const gameAnsweres = [
+  //     "macaroni and cheese",
+  //     "crackers",
+  //     "hamburger helper",
+  //     "donuts",
+  //     "popcorn",
+  //     "pizza"
+  //   ]
 
    
       
-    if (gameQuestions[0]){
-    for (i = 0; i < gameAnsweres.length; i ++){
-      if (team1Answer === "pizza"){
-        setteam1Points (team1points + 10)
-      }
+  //   if (gameQuestions[0]){
+  //   for (let i = 0; i < gameAnsweres.length; i ++){
+  //     if (team1Answer === "pizza"){
+  //       setteam1Points (team1points + 10)
+  //     }
   
-      if (team1Answer === "crackers"){
-        setteam1Points (team1points + 36)
-      }
-    }
-  }
+  //     if (team1Answer === "crackers"){
+  //       setteam1Points (team1points + 36)
+  //     }
+  //   }
+  // }
 
     
     // {
@@ -300,49 +301,66 @@ const RoundTwo = () => {
 
   return (
     <>
-      <Button onClick={() => setLgShow(true)}>START GAME</Button>
+       <>
+      {values.map((v, idx) => (
+        <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
+          Fullscreen
+          {typeof v === 'string' && `below ${v.split('-')[0]}`}
+        </Button>
+      ))}
+      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Modal body content</Modal.Body>
+      </Modal>
+    </>
+
+    {/* ==================================================== */}
+      <Button onClick={() => setLgShow(true)}></Button>
       <Modal
         size="lg"
         show={lgShow}
         onHide={() => setLgShow(false)}
         aria-labelledby="example-modal-sizes-title-lg"
-      >
+        >
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
-            GAME RULES
+            GAME RULES: <h6>dgoidnvknoeinhjvcgvjhbjnlbhvjgchfvbnilibvcvbnm;nbuiyvutcrytvubnimnubiyvtcvbv</h6>
+        {!isRunning && showButton && (
+          <div>
+            {/* <div>{gameQuestions[0]}</div> */}
+            <div>
+              <Flipcoin />
+              Congrats {currentTeam}, YOUR FIRST! Pick your team name:
+              <div>
+                <input
+                  type="text"
+                  placeholder="ENTER TEAM NAME"
+                  value={teamName}
+                  onChange={handleInputChange}
+                />
+                <button onClick={handleTeamName}> Save Name</button>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  placeholder="ENTER TEAM NAME"
+                  value={otherTeamName}
+                  onChange={handleOtherInputChange}
+                />
+                <button onClick={handleOtherTeamName}> Save Name</button>
+              </div>
+            </div>
+            <button id="start" onClick={handleStart}>
+              Start Game
+              {/* PUT COINFLIP LOGIC HERE */}
+            </button>
+          </div>
+        )}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {!isRunning && showButton && (
-            <div>
-              <div>{gameQuestions[0]}</div>
-              <div>
-                Congrats {currentTeam}, YOUR FIRST! Pick your team name:
-                <div>
-                  <input
-                    type="text"
-                    placeholder="ENTER TEAM NAME"
-                    value={teamName}
-                    onChange={handleInputChange}
-                  />
-                  <button onClick={handleTeamName}> Save Name</button>
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="ENTER TEAM NAME"
-                    value={otherTeamName}
-                    onChange={handleOtherInputChange}
-                  />
-                  <button onClick={handleOtherTeamName}> Save Name</button>
-                </div>
-              </div>
-              <button id="start" onClick={handleStart}>
-                Start Game
-                {/* PUT COINFLIP LOGIC HERE */}
-              </button>
-            </div>
-          )}
         </Modal.Body>
       </Modal>
 
