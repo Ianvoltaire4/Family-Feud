@@ -1,0 +1,49 @@
+.gamepage {
+    text-align: center;
+
+  }
+  input[type="text"] {
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+  }
+  /* Add styles for buttons */
+  button {
+    padding: 10px 20px;
+    margin: 90px;
+    border-radius: 12px;
+    background-color: #007BFF;
+    background: linear-gradient(109.5deg, rgb(13, 11, 136) 9.4%, rgb(5, 82, 177) 78.4%);
+    color: #d3d3d3;
+    border: chocolate;
+    border-radius: 45px;
+    cursor: pointer;
+  }
+
+button:hover{
+  background: #007BFF;
+  background: linear-gradient(109.5deg, rgb(13, 11, 136) 9.4%, rgb(86, 255, 248) 78.4%)
+}
+  p {
+    font-size: 30px;
+    margin: 10px 0;
+    color: aliceblue;
+    border-radius: 34px;
+    border-color: midnightblue;
+  }
+  body{
+    background-image: url(floodlights.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+.header{
+  font-size: 40px;
+    color: aliceblue;
+}
+
+.reg{
+  font-size: 25px;
+  color: aliceblue;
+  border-color: midnightblue;
+}

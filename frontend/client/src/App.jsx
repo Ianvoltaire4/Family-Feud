@@ -1,24 +1,15 @@
 import React from 'react'
 import Registration from './components/Registration'
+import Roundthree from './components/Roundthree'
 import RoundTwo from './components/RoundTwo'
-import FinalRound from './components/FinalRound'
-import Homepage from './Homepage'
-import YourComponent from './components/YourComponent'
-import Gamelayout from './components/Gamelayout'
-import { Routes, Route, Link } from 'react-router-dom'
 
 
 const App = () => {
   return (
     <>
-    <Routes>
-      <Route path='/' element={<Homepage />} />
-      {/* <Route path='/RoundTwo' element={<RoundTwo />} /> */}
-      {/* <Route path='/FinalRound' element={<FinalRound />} /> */}
-      {/* <Route path='/Roundone' element={<Roundone />} /> */}
-      {/* <Route path='/Login' element={<Login />} /> */}
-      <Route path='/Registration' element={<Registration />} />
-    </Routes>
+    <Roundthree />
+    <RoundTwo />
+    <Registration />
     </>
   )
 }

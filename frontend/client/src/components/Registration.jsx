@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './Game.css'
 
 const Registration = () => {
   //useState used to store all the input field values
@@ -61,24 +62,24 @@ fetch("http://localhost:5001/registration", {
   
   return (
     <>
-      <h2>User Registration</h2>
-      <div>
+      <h2 className="header">User Registration</h2>
+      <div className="reg">
         <label>First Name</label>
         <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
       </div>
-      <div>
+      <div className="reg">
         <label>Last Name</label>
         <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
       </div>
-      <div>
+      <div className="reg">
         <label>Email</label>
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
       </div>
-      <div>
+      <div className="reg">
         <label>Username</label>
         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
       </div>
-      <div>
+      <div className="reg">
         <label>Password</label>
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
       </div>
