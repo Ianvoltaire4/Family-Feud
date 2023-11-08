@@ -4,8 +4,10 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
+import CoinFlip from "./CoinFlip"
 
 const RoundTwo = () => {
+  //inputs for both teams
   const [teamOneInput, setTeamOneInput] = useState("");
   const [teamTwoInput, setTeamTwoInput] = useState("");
   const [question, setQuestion] = useState("");
@@ -26,7 +28,7 @@ const RoundTwo = () => {
   const [currentTeam, setCurrentTeam] = useState("");
   const [otherTeam, setOtherTeam] = useState("");
   const [teamName, setTeamName] = useState("");
-  const [otherTeamName, setOtherTeamName]=useState("")
+  const [otherTeamName, setOtherTeamName] = useState("");
   const [time, setTime] = useState(1000);
   const [teamOneX, setTeamOneX] = useState(0);
   const [teamTwoX, setTeamTwoX] = useState(0);
@@ -39,8 +41,16 @@ const RoundTwo = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [showStartMenu, setShowStartMenu] = useState(true);
+  //bootstrap
   const [smShow, setSmShow] = useState(false);
   const [lgShow, setLgShow] = useState(false);
+  const [show, setShow]=useState(false)
+  const values = [true, 'sm-down', 'md-down', 'lg-down', 'xl-down', 'xxl-down'];
+  const [fullscreen, setFullscreen] = useState(true);
+  function handleShow(breakpoint) {
+    setFullscreen(breakpoint);
+    setShow(true);
+  }
   const maxWrongAnswers = 3;
   let boardCleared = false;
   let content;
@@ -65,16 +75,16 @@ const RoundTwo = () => {
   const handleTeamName = () => {
     setCurrentTeam(teamName);
   };
-  const handleOtherTeamName=()=>{
-    setOtherTeam(otherTeamName)
-  }
+  const handleOtherTeamName = () => {
+    setOtherTeam(otherTeamName);
+  };
 
   const handleInputChange = (e) => {
     setTeamName(e.target.value);
   };
-  const handleOtherInputChange=(e)=>{
-    setOtherTeamName(e.target.value)
-  }
+  const handleOtherInputChange = (e) => {
+    setOtherTeamName(e.target.value);
+  };
 
   const hours = Math.floor(time / 360000);
   const min = Math.floor((time % 360000) / 6000);
@@ -104,15 +114,14 @@ const RoundTwo = () => {
     setLgShow(true);
   }, [showButton]);
 
-
   const handleStart = () => {
     setTimeout(() => {
       startAndStop();
       setGameStarted(true);
       setShowStartMenu(false); // Hide the start menu after starting the game
-      setLgShow(false); 
+      setLgShow(false);
       setCurrentTeam(teamName);
-      setOtherTeam(otherTeamName)
+      setOtherTeam(otherTeamName);
     }, []);
     populateData;
   };
@@ -143,41 +152,38 @@ const RoundTwo = () => {
     }
   };
 
-  const gameData = [
-    {
-      q: "Name a food that comes in a box.",
-      a1: "cereal",
-      a2: "macaroni and cheese",
-      a3: "crackers",
-      a4: "hamburger helper",
-      a5: "donuts",
-      a6: "popcorn",
-      a7: "pizza",
-      s1: 43,
-      s2: 14,
-      s3: 13,
-      s4: 5,
-      s5: 5,
-      s6: 5,
-      s7: 5,
-    },
-    {
-      q: "Name One Of Santa’s Reindeer	",
-      a1: "rudolph",
-      a2: "donder",
-      a3: "blitzen",
-      a4: "dancer",
-      a5: "vixen",
-      a6: "cupid",
-      a7: "prancer",
-      s1: 52,
-      s2: 10,
-      s3: 9,
-      s4: 8,
-      s5: 7,
-      s6: 6,
-      s7: 5,
-    },
+  const [isRound1QuestionActive, setIsRound1QuestionActive] = useState(false)
+
+  const gameQuestions = [
+      "Name a food that comes in a box.", 
+      "what 9 + 10"
+  ]
+    
+
+    const gameAnsweres = [
+      "macaroni and cheese",
+      "crackers",
+      "hamburger helper",
+      "donuts",
+      "popcorn",
+      "pizza"
+    ]
+
+   
+      
+    if (gameQuestions[0]){
+    for (i = 0; i < gameAnsweres.length; i ++){
+      if (team1Answer === "pizza"){
+        setteam1Points (team1points + 10)
+      }
+  
+      if (team1Answer === "crackers"){
+        setteam1Points (team1points + 36)
+      }
+    }
+  }
+
+    
     // {
     //   q: '',
     //   a1: '',
@@ -195,7 +201,7 @@ const RoundTwo = () => {
     //   s6: ,
     //   s7:
     // }
-  ];
+  ;
 
   const populateData = () => {
     setQuestion(q);
@@ -225,7 +231,7 @@ const RoundTwo = () => {
 
   const handleRoundOver = () => {
     let boardCleared = false;
-  
+
     // Check if the answers are correct for the current team
     if (
       (currentTeam === "Team One" &&
@@ -248,11 +254,12 @@ const RoundTwo = () => {
       console.log("YOU HAVE CLEARED THE BOARD");
       boardCleared = true;
     }
-  
+
     // Check if the other team stole points
     if (!boardCleared) {
       if (
-        (wrongAnswersTeamOne === maxWrongAnswers && currentTeam === "Team Two") ||
+        (wrongAnswersTeamOne === maxWrongAnswers &&
+          currentTeam === "Team Two") ||
         (wrongAnswersTeamTwo === maxWrongAnswers && currentTeam === "Team One")
       ) {
         if (
@@ -263,13 +270,34 @@ const RoundTwo = () => {
         ) {
           console.log(`${otherTeam}, YOU HAVE STOLEN`);
         } else {
-          console.log(`${otherTeam} HAS LOST THE STEAL, ${currentTeam} YOU TAKE THE POINTS`);
+          console.log(
+            `${otherTeam} HAS LOST THE STEAL, ${currentTeam} YOU TAKE THE POINTS`
+          );
         }
       } else {
         console.log("NO ONE TAKES THE POINTS");
       }
     }
   };
+
+  //for rendering multiple returns
+  // const handleTurn=()=>{
+  //   if(coinFlip == "heads"){
+  //     return(
+  //       <>
+  
+  //       </>
+  //     )
+  //   }else{
+  //     return(
+  //       <>
+  
+  //       </>
+  //     )
+  //   }
+  // }
+
+
   return (
     <>
       <Button onClick={() => setLgShow(true)}>START GAME</Button>
@@ -287,21 +315,31 @@ const RoundTwo = () => {
         <Modal.Body>
           {!isRunning && showButton && (
             <div>
+              <div>{gameQuestions[0]}</div>
               <div>
                 Congrats {currentTeam}, YOUR FIRST! Pick your team name:
                 <div>
-                <input type="text" placeholder="ENTER TEAM NAME" value={teamName} onChange={handleInputChange}/>
-                <button onClick={handleTeamName}> Save Name</button>
+                  <input
+                    type="text"
+                    placeholder="ENTER TEAM NAME"
+                    value={teamName}
+                    onChange={handleInputChange}
+                  />
+                  <button onClick={handleTeamName}> Save Name</button>
                 </div>
                 <div>
-                <input type="text" placeholder="ENTER TEAM NAME" value={otherTeamName} onChange={handleOtherInputChange}/>
-                <button onClick={handleOtherTeamName}> Save Name</button>
+                  <input
+                    type="text"
+                    placeholder="ENTER TEAM NAME"
+                    value={otherTeamName}
+                    onChange={handleOtherInputChange}
+                  />
+                  <button onClick={handleOtherTeamName}> Save Name</button>
                 </div>
               </div>
               <button id="start" onClick={handleStart}>
                 Start Game
                 {/* PUT COINFLIP LOGIC HERE */}
-
               </button>
             </div>
           )}
@@ -339,8 +377,6 @@ const RoundTwo = () => {
       wrongAnswersTeamOne === maxWrongAnswers ||
       wrongAnswersTeamTwo === maxWrongAnswers ? (
         <div>
-
-
           <h1>DING DING DING DING, TIMES UP{handleTeamSwitch}</h1>
           <h1>{currentTeam} you have lost you're turn</h1>
           <h3>
@@ -363,13 +399,13 @@ const RoundTwo = () => {
       <div>
         {wrongAnswersTeamOne < maxWrongAnswers && (
           <div>
-            {currentTeam}: <input type="text" onChange={setTeamOneInput} />
+            {currentTeam}: <input id="currentTeam" type="text" onChange={setTeamOneInput} />
             <button onClick={teamOneWrongAnswer}>enter</button>
           </div>
         )}
         {wrongAnswersTeamTwo < maxWrongAnswers && (
           <div>
-            {otherTeam}: <input type="text" onChange={setTeamTwoInput} />
+            {otherTeam}: <input id="otherTeam" type="text" onChange={setTeamTwoInput} />
             <button onClick={teamTwoWrongAnswer}>enter</button>
           </div>
         )}
@@ -380,18 +416,3 @@ const RoundTwo = () => {
 
 export default RoundTwo;
 
-// const handleTurn=()=>{
-//   if(coinFlip == "heads"){
-//     return(
-//       <>
-
-//       </>
-//     )
-//   }else{
-//     return(
-//       <>
-
-//       </>
-//     )
-//   }
-// }
