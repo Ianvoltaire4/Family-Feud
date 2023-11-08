@@ -38,3 +38,27 @@
 {"level":"info","message":{"body":{"email":"test@test.com","password":"password"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 10:45:58 AM","url":"/login"},"service":"user-service"}
 =======
 >>>>>>> main
+{"level":"info","message":{"body":{"email":"Deron","firstName":"","lastName":"","password":"Password123?","username":""},"level":"info","method":"POST","parameters":{"0":"/registration"},"timestamp":"11/8/2023, 3:14:54 PM","url":"/registration"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","firstName":"","lastName":"","password":"Password123?","username":""},"level":"info","method":"POST","parameters":{"0":"/registration"},"timestamp":"11/8/2023, 3:14:54 PM","url":"/registration"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:23 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:23 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:28 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:28 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:29 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:29 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:29 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:29 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:30 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Passworkd123?:"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:31:30 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"","password":""},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:34:01 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"","password":""},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:34:01 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"","password":""},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:34:38 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"","password":""},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:34:38 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"","password":""},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:36:43 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"","password":""},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:36:43 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Fambro"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:36:58 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"Deron","password":"Fambro"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:36:58 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"keth","password":"kethpassword12?"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:37:38 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"keth","password":"kethpassword12?"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:37:38 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"test@test.com","password":"Password123?"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:38:24 PM","url":"/login"},"service":"user-service"}
+{"level":"info","message":{"body":{"email":"test@test.com","password":"Password123?"},"level":"info","method":"POST","parameters":{"0":"/login"},"timestamp":"11/8/2023, 3:38:24 PM","url":"/login"},"service":"user-service"}

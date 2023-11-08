@@ -47,6 +47,8 @@ const RoundTwo = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [showStartMenu, setShowStartMenu] = useState(true);
+  const [roundOver, setRoundOver] = useState(false); // New state variable
+
   //bootstrap
   const [smShow, setSmShow] = useState(false);
   const [lgShow, setLgShow] = useState(false);
@@ -157,15 +159,22 @@ const RoundTwo = () => {
 
 
   useEffect(() => {
-    if (!showButton) {
-      const hideButton = setTimeout(() => {
-        setShowButton(false);
-      }, 5000);
-      return () => clearTimeout(hideButton);
+    let intervalId;
+    if (isRunning) {
+      intervalId = setInterval(() => {
+        setTime((prevTime) => {
+          if (prevTime === 0 || wrongAnswersTeamOne === maxWrongAnswers || wrongAnswersTeamTwo === maxWrongAnswers) {
+            clearInterval(intervalId); // Clear the interval to stop the timer
+            setShowButton(false); // Hide the button
+            setRoundOver(true); // Round is over
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 10);
     }
-    startAndStop;
-    setLgShow(true);
-  }, [showButton]);
+    return () => clearInterval(intervalId);
+  }, [isRunning, wrongAnswersTeamOne, wrongAnswersTeamTwo]);
   
   const populateData = () => {
     setQuestion(q);
@@ -242,25 +251,6 @@ const handleAnwers=()=>{
   //   }
   // }
 
-    
-    // {
-    //   q: '',
-    //   a1: '',
-    //   a2: '',
-    //   a3: '',
-    //   a4: '',
-    //   a5: '',
-    //   a6: '',
-    //   a7: '',
-    //   s1: ,
-    //   s2: ,
-    //   s3: ,
-    //   s5: ,
-    //   s4: ,
-    //   s6: ,
-    //   s7:
-    // }
-  ;
 
 
   const assignPoints = () => {
@@ -335,190 +325,73 @@ const handleAnwers=()=>{
     }
   };
 
-  //for rendering multiple returns
-  // const handleTurn=()=>{
-  //   if(coinFlip == "heads"){
-  //     return(
-  //       <>
-  
-  //       </>
-  //     )
-  //   }else{
-  //     return(
-  //       <>
-  
-  //       </>
-  //     )
-  //   }
-  // }
+
 
 
   return (
     <>
-       <>
-      {values.map((v, idx) => (
-        <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
-          Fullscreen
-          {typeof v === 'string' && `below ${v.split('-')[0]}`}
-        </Button>
-      ))}
-      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Modal body content</Modal.Body>
-      </Modal>
-    </>
-
-    {/* ==================================================== */}
-      <Button onClick={() => setLgShow(true)}></Button>
-      <Modal
-        size="lg"
-        show={lgShow}
-        onHide={() => setLgShow(false)}
-        aria-labelledby="example-modal-sizes-title-lg"
-        >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">
-            GAME RULES: <h6 id="rules">dgoidnvknoeinhjvcgvjhbjnlbhvjgchfvbnknvkjkdfvjklmdfjhnvkldmnjbhfjivnkfbdliv;jlkndfbhlvnlkdfjbvndflkjbhlvndklmcnfjbvhldfnclkmvnjblhdfknkcmlvnjbhdflcnvklm/njbhfdvimknjedfbjkmvnjdfj.nvmkndjf jnkvmndj.fcknmvdfnj vnkmdfnj vnmkdfn v.ndfmk/cv nfndkm vndcm/k df.mcfdnvnkfcvmdfk cmvmfc/ fnmck nckm vfmmdc,mcdm k.fdcmkcilibvcvbnm;nbuiyvutcrytvubnimnubiyvtcvbv</h6>
-        {!isRunning && showButton && (
-          <div>
-            {/* <div>{gameQuestions[0]}</div> */}
-            <div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="ENTER TEAM NAME"
-                  value={teamName}
-                  onChange={handleInputChange}
-                  />
-                <button onClick={handleTeamName}> Save name as heads</button>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="ENTER TEAM NAME"
-                  value={otherTeamName}
-                  onChange={handleOtherInputChange}
-                  />
-                <button onClick={handleOtherTeamName}> Save name as tails</button>
-              </div>
-            </div>
-          </div>
-        )}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <Flipcoin />
-          <div>
-        Heads: {currentTeam}
-        <br />
-        Tails: {otherTeam}
-        </div>
-            <button id="start" onClick={handleStart}>
-              Start Game
-
-            </button>
-        </Modal.Body>
-      </Modal>
-
-    {/* ============================================================================================================== */}
-
-    {/* <div>
-  <h1>{question}</h1>
-  <ul>
-    {questionData.map((item, index) => (
-      <li key={index}>
-        <p>{item.answer}: {item.score}pts</p>
-      </li>
-    ))}
-  </ul>
-</div> */}
-
-    {/* ============================================================================================================== */}
-
-
-      <div id="board">
-        <div>{question}</div>
-        <div id="answers">
-          <div id="answer1" className="allAnswers">
-            {answerOne} <strong>{answerOneScore}</strong>
-          </div>
-          <div id="answer2" className="allAnswers">
-            {answerTwo} <strong>{answerTwoScore}</strong>
-          </div>
-          <div id="answer3" className="allAnswers">
-            {answerThree} <strong>{answerThreeScore}</strong>
-          </div>
-          <div id="answer4" className="allAnswers">
-            {answerFour} <strong>{answerFourScore}</strong>
-          </div>
-          <div id="answer5" className="allAnswers">
-            {answerFive} <strong>{answerFiveScore}</strong>
-          </div>
-          <div id="answer6" className="allAnswers">
-            {answerSix} <strong>{answerSixScore}</strong>
-          </div>
-        </div>
-      </div>
-{
-// time === 0 || 
-wrongAnswersTeamOne === maxWrongAnswers || wrongAnswersTeamTwo === maxWrongAnswers ? (
+      {time === 0 || wrongAnswersTeamOne === maxWrongAnswers || wrongAnswersTeamTwo === maxWrongAnswers ? (
         <>
-      <Button onClick={() => setSmShow(true)} className="me-2">
-        Small modal
-      </Button>
-      <Button onClick={() => setLgShow(true)}>Large modal</Button>
-      <Modal
-        size="sm"
-        show={smShow}
-        onHide={() => setSmShow(false)}
-        aria-labelledby="example-modal-sizes-title-sm"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">
-          <h3>DING DING DING DING, TIMES UP {handleTeamSwitch}, {currentTeam} you have lost you're turn</h3>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h3>
-            On to the next team! {otherTeam} you're up! All you need to do to
-            take the points for this round, is guess one more item on the board.
-            If its not there then {currentTeam} take this round!!!
-          </h3>
-          <button >{currentTeam}'s Turn</button>
-
-          {/* <button id="switch-teams" onClick={handleTeamSwitch}>
-            switch
-          </button> */}
-        </Modal.Body>
-      </Modal>
+          <Button onClick={() => setSmShow(true)} className="me-2">
+            Small modal
+          </Button>
+          <Button onClick={() => setLgShow(true)}>Large modal</Button>
+          <Modal
+            size="sm"
+            show={smShow}
+            onHide={() => setSmShow(false)}
+            aria-labelledby="example-modal-sizes-title-sm"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="example-modal-sizes-title-sm">
+                <h3>DING DING DING DING, TIMES UP {handleTeamSwitch}, {currentTeam} you have lost your turn</h3>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h3>
+                On to the next team! {otherTeam} you're up! All you need to do to
+                take the points for this round is guess one more item on the board.
+                If it's not there, then {currentTeam} takes this round!!!
+              </h3>
+              <button>{currentTeam}'s Turn</button>
+            </Modal.Body>
+          </Modal>
         </>
-
+      ) : roundOver ? (
+        <>
+          <h3>Round Over</h3>
+          <p>Answer 1: {answerOneScore} points</p>
+          <p>Answer 2: {answerTwoScore} points</p>
+          <p>Answer 3: {answerThreeScore} points</p>
+          <p>Answer 4: {answerFourScore} points</p>
+          <p>Answer 5: {answerFiveScore} points</p>
+          <p>Answer 6: {answerSixScore} points</p>
+          <p>Total Score for {currentTeam}: {teamOneScore}</p>
+          <p>Total Score for {otherTeam}: {teamTwoScore}</p>
+        </>
       ) : (
         <>
           {sec.toString().padStart(2, "0")}:
           {millisec.toString().padStart(2, "0")}
+          <div>
+            {wrongAnswersTeamOne < maxWrongAnswers && (
+              <div>
+                {currentTeam}: <input id="currentTeam" type="text" onChange={setTeamOneInput} />
+                <button onClick={teamOneWrongAnswer}>Enter</button>
+              </div>
+            )}
+            {wrongAnswersTeamTwo < maxWrongAnswers && (
+              <div>
+                {otherTeam}: <input id="otherTeam" type="text" onChange={setTeamTwoInput} />
+                <button onClick={teamTwoWrongAnswer}>Enter</button>
+              </div>
+            )}
+          </div>
         </>
       )}
-
-      <div>
-        {wrongAnswersTeamOne < maxWrongAnswers && (
-          <div>
-            {currentTeam}: <input id="currentTeam" type="text" onChange={setTeamOneInput} />
-            <button onClick={teamOneWrongAnswer}>enter</button>
-          </div>
-        )}
-        {wrongAnswersTeamTwo < maxWrongAnswers && (
-          <div>
-            {otherTeam}: <input id="otherTeam" type="text" onChange={setTeamTwoInput} />
-            <button onClick={teamTwoWrongAnswer}>Enter</button>
-          </div>
-        )}
-      </div>
     </>
   );
-};
-
+  }
+  
 export default RoundTwo;
 
