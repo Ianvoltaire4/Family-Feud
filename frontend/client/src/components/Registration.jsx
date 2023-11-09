@@ -62,7 +62,11 @@ fetch("http://localhost:5001/registration", {
   
   return (
     <>
+
       <h2 className="header">Sign-Up For Our Newsletter</h2>
+
+      <h2 className="header">User Registration</h2>
+
       <div className="reg">
         <label>First Name</label>
         <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
