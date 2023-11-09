@@ -13,11 +13,14 @@ import RoundTwo from './components/RoundTwo'
 const App = () => {
   return (
     <>
+    <Registration />
+    <Roundthree />
 
-
+<Link to='/Registration'></Link>
+<Link to='Roundthree'></Link>
   <Routes>
   <Route path="/Roundthree" element={<Roundthree />} />
-  <Route path="/Registration" element={<Registration />} />
+  <Route path="/Registration" element={<Registration />}  />
   </Routes>
     </>
   )
