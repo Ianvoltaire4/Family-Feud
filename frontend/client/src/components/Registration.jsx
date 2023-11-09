@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import './Game.css'
+import { Routes, Route, Link } from "react-router-dom";
+import Roundthree from "./Roundthree";
+
 
 const Registration = () => {
   //useState used to store all the input field values
@@ -26,7 +29,7 @@ const handleSubmit=async()=>{
     password: "Password123?",
   };
   
-fetch("http://localhost:5001/registration", {
+fetch("http://localhost:5001/signup", {
     method: "POST",
     headers: {
       "Content-type": "application/json", //must include this to prevent cors error
@@ -65,29 +68,17 @@ fetch("http://localhost:5001/registration", {
 
       <h2 className="header">Sign-Up For Our Newsletter</h2>
 
-      <h2 className="header">User Registration</h2>
-
-      <div className="reg">
-        <label>First Name</label>
-        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
-      </div>
-      <div className="reg">
-        <label>Last Name</label>
-        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
-      </div>
       <div className="reg">
         <label>Email</label>
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
       </div>
-      <div className="reg">
-        <label>Username</label>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
-      </div>
+
       <div className="reg">
         <label>Password</label>
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
       </div>
-      <button onClick={handleSubmit}>Register</button>
+      <button onClick={handleSubmit}><Link to='/Roundthree'>Sign Up?</Link>
+</button>
     </>
   );
 };
