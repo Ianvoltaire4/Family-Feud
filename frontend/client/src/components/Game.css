@@ -33,7 +33,7 @@ button:hover{
     border-color: midnightblue;
   }
   body{
-    background-image: url(floodlights.webp);
+    background-image: url(../../public/floodlights.webp);
     background-repeat: no-repeat;
     background-size: cover;
   }

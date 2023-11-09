@@ -181,7 +181,7 @@ app.post('/login', (req, res) => {
 
 //====================================REGISTRATION ENDPOINT========================================
 
-app.post('/registration', async (req,res)=>{
+app.post('/signup', async (req,res)=>{
   const { email, password } = req.body;
   const dbUser = await Users.findOne({ where: { email: email } });
   if(!dbUser){
